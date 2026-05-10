@@ -9,10 +9,13 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "docker:build": "docker build -t portfolio .",
+    "docker:run": "docker run --rm -p 3000:3000 portfolio"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "@swc/helpers": "^0.5.21",
     "dompurify": "^3.4.2",
     "next": "16.2.6",
     "next-intl": "^4.11.1",
