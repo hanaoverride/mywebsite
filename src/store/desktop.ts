@@ -9,6 +9,7 @@ interface DesktopStore {
   locale: 'ko' | 'en';
   panelTime: string;
   zIndexCounter: number;
+  hasAutoOpened: boolean;
 
   // Actions
   openApp: (id: AppId) => void;
@@ -83,6 +84,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
     minute: '2-digit',
   }),
   zIndexCounter: 1,
+  hasAutoOpened: false,
 
   openApp: (id: AppId) => {
     const state = get();
@@ -122,6 +124,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       },
       focusedApp: id,
       zIndexCounter: newZIndex,
+      hasAutoOpened: true,
     });
   },
 

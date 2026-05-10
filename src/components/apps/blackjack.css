@@ -1,0 +1,229 @@
+.blackjack-container {
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: 
+    radial-gradient(circle at center, rgba(26, 77, 46, 0.8) 0%, rgba(13, 43, 26, 0.9) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-color: #1a4d2e;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: white;
+  user-select: none;
+}
+
+.blackjack-table-border {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: -20px;
+  bottom: -20px;
+  border: 40px solid #2c1a12;
+  border-radius: 60px;
+  pointer-events: none;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.blackjack-table-inner {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
+.card {
+  width: 70px;
+  height: 100px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px;
+  color: black;
+  position: relative;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  animation: dealCard 0.4s ease-out;
+}
+
+@keyframes dealCard {
+  from {
+    transform: translateY(-200px) rotate(20deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) rotate(0);
+    opacity: 1;
+  }
+}
+
+.card.hidden {
+  background: linear-gradient(135deg, #2c3e50 0%, #000000 100%);
+  border: 3px solid white;
+}
+
+.card.hidden::after {
+  content: '♣';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.card-top {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  transform: rotate(180deg);
+}
+
+.card-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+}
+
+.card.red {
+  color: #e74c3c;
+}
+
+.chip {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px dashed rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.8rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chip-1 { background-color: #f1c40f; color: #000; }
+.chip-5 { background-color: #e74c3c; color: #fff; }
+.chip-10 { background-color: #3498db; color: #fff; }
+.chip-50 { background-color: #9b59b6; color: #fff; }
+
+.blackjack-button {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.5rem 1.5rem;
+  border-radius: 20px;
+  transition: all 0.2s;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.blackjack-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.blackjack-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.blackjack-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.85);
+  padding: 2.5rem 5rem;
+  border-radius: 1.5rem;
+  text-align: center;
+  z-index: 10;
+  border: 2px solid gold;
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.3), inset 0 0 15px rgba(255, 215, 0, 0.1);
+  backdrop-filter: blur(8px);
+  animation: resultPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes resultPop {
+  from { opacity: 0; transform: translate(-50%, -40%) scale(0.8); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.result-text {
+  display: block;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+}
+
+.win-text {
+  color: #2ecc71;
+  text-shadow: 0 0 15px rgba(46, 204, 113, 0.5);
+}
+
+.lose-text {
+  color: #e74c3c;
+  text-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+}
+
+.bust-text {
+  color: #ff3e3e;
+  font-size: 3rem;
+  font-weight: 900;
+  text-shadow: 
+    2px 2px 0px #000,
+    -2px -2px 0px #000,
+    2px -2px 0px #000,
+    -2px 2px 0px #000,
+    0px 0px 20px rgba(255, 0, 0, 0.8);
+  transform: rotate(-5deg);
+  animation: bustShake 0.1s infinite alternate;
+}
+
+@keyframes bustShake {
+  from { transform: rotate(-5deg) scale(1); }
+  to { transform: rotate(-4deg) scale(1.05); }
+}
+
+.blackjack-text {
+  color: #f1c40f;
+  text-shadow: 0 0 20px rgba(241, 196, 15, 0.8);
+  animation: bounce 0.5s infinite alternate;
+}
+
+.push-text {
+  color: #f39c12;
+  text-shadow: 0 0 15px rgba(243, 156, 18, 0.5);
+}
+
+@keyframes bounce {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}

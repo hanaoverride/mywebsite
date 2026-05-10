@@ -12,6 +12,7 @@ import PortfolioContent from '@/lib/portfolio-content';
 import type { AppId } from '@/types/desktop';
 
 import { AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 
 function AppContent({ id }: { id: AppId }) {
   switch (id) {
@@ -42,6 +43,15 @@ function AppContent({ id }: { id: AppId }) {
 
 export default function WindowManager() {
   const openApps = useDesktopStore((s) => s.openApps);
+  const openApp = useDesktopStore((s) => s.openApp);
+  const hasAutoOpened = useDesktopStore((s) => s.hasAutoOpened);
+
+  useEffect(() => {
+    // Open textviewer on startup if not already open and never auto-opened before
+    if (!hasAutoOpened && !openApps.textviewer) {
+      openApp('textviewer');
+    }
+  }, [hasAutoOpened, openApp, openApps.textviewer]);
 
   const windows = Object.values(openApps).filter(Boolean);
 
