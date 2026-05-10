@@ -3,9 +3,30 @@
     "panel": {
       "timeFormat": "YYYY-MM-DD dddd, HH:MM",
       "menuLabel": "메뉴",
-      "temperature": "4000K",
+      "temperature": "6500K",
+      "temperatureLabel": "색온도",
       "battery": "100%",
-      "weather": "맑음 16°C"
+      "weatherConditions": {
+        "Clear": "맑음",
+        "Cloudy": "흐림",
+        "Fog": "안개",
+        "Rain": "비",
+        "HeavyRain": "강한 비",
+        "Snow": "눈",
+        "Thunderstorm": "뇌우"
+      },
+      "weatherDetails": {
+        "location": "부산 광안리",
+        "feelsLike": "체감 온도",
+        "humidity": "습도",
+        "windSpeed": "풍속"
+      },
+      "calendar": {
+        "title": "달력",
+        "today": "오늘",
+        "months": ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        "weekdays": ["일", "월", "화", "수", "목", "금", "토"]
+      }
     },
     "dock": {
       "terminal": "터미널",
@@ -46,8 +67,8 @@
       "exitMessage": "터미널 세션이 종료되었습니다"
     },
     "browser": {
-      "title": "사생활 보호 모드",
-      "tabName": "새 사생활 보호 탭",
+      "title": "웹 브라우저",
+      "tabName": "하나의 포트폴리오",
       "addressPlaceholder": "Google 검색 또는 주소 입력"
     },
     "mail": {

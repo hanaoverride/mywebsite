@@ -3,9 +3,30 @@
     "panel": {
       "timeFormat": "YYYY-MM-DD dddd, HH:MM",
       "menuLabel": "Menu",
-      "temperature": "4000K",
+      "temperature": "6500K",
+      "temperatureLabel": "Color Temperature",
       "battery": "100%",
-      "weather": "Clear 16°C"
+      "weatherConditions": {
+        "Clear": "Clear",
+        "Cloudy": "Cloudy",
+        "Fog": "Fog",
+        "Rain": "Rain",
+        "HeavyRain": "Heavy Rain",
+        "Snow": "Snow",
+        "Thunderstorm": "Thunderstorm"
+      },
+      "weatherDetails": {
+        "location": "Gwangalli, Busan",
+        "feelsLike": "Feels like",
+        "humidity": "Humidity",
+        "windSpeed": "Wind"
+      },
+      "calendar": {
+        "title": "Calendar",
+        "today": "Today",
+        "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        "weekdays": ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+      }
     },
     "dock": {
       "terminal": "Terminal",
@@ -46,8 +67,8 @@
       "exitMessage": "Terminal session ended"
     },
     "browser": {
-      "title": "Private Browsing",
-      "tabName": "New Private Tab",
+      "title": "Web Browser",
+      "tabName": "Hana's Portfolio",
       "addressPlaceholder": "Search Google or type a URL"
     },
     "mail": {

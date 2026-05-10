@@ -23,6 +23,17 @@ interface DesktopStore {
   updatePanelTime: () => void;
   isSleepMode: boolean;
   setIsSleepMode: (value: boolean) => void;
+  colorTemperature: number;
+  setColorTemperature: (value: number) => void;
+  weather: {
+    temp: number;
+    feelsLike: number;
+    humidity: number;
+    windSpeed: number;
+    condition: string;
+    icon: string;
+  } | null;
+  fetchWeather: () => Promise<void>;
 }
 
 const APP_TITLES: Record<AppId, string> = {
@@ -36,7 +47,7 @@ const APP_TITLES: Record<AppId, string> = {
 
 function getAppTitle(id: AppId, locale: 'ko' | 'en'): string {
   if (id === 'browser') {
-    return locale === 'ko' ? '사생활 보호 모드' : 'Private Browsing';
+    return locale === 'ko' ? '하나의 포트폴리오' : "Hana's Portfolio";
   }
   return APP_TITLES[id];
 }
@@ -46,10 +57,19 @@ const DEFAULT_HEIGHT = 550;
 const STAGGER_OFFSET = 30;
 
 function getStaggeredPosition(existingCount: number): { x: number; y: number } {
-  const baseX = 80;
-  const baseY = 80;
-  const x = baseX + (existingCount * STAGGER_OFFSET) % 400;
-  const y = baseY + (existingCount * STAGGER_OFFSET) % 300;
+  // Default fallback if window is not defined
+  let baseX = 80;
+  let baseY = 80;
+
+  if (typeof window !== 'undefined') {
+    baseX = Math.max(40, (window.innerWidth - DEFAULT_WIDTH) / 2);
+    baseY = Math.max(60, (window.innerHeight - DEFAULT_HEIGHT) / 2);
+  }
+
+  // Staggering effect
+  const x = baseX + (existingCount * STAGGER_OFFSET) % 300;
+  const y = baseY + (existingCount * STAGGER_OFFSET) % 200;
+  
   return { x, y };
 }
 
@@ -196,4 +216,56 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
     }),
   isSleepMode: false,
   setIsSleepMode: (value: boolean) => set({ isSleepMode: value }),
+  colorTemperature: 6500,
+  setColorTemperature: (value: number) => set({ colorTemperature: value }),
+  weather: null,
+  fetchWeather: async () => {
+    try {
+      const res = await fetch(
+        'https://api.open-meteo.com/v1/forecast?latitude=35.1531&longitude=129.1189&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&wind_speed_unit=ms&timezone=auto',
+      );
+      const data = await res.json();
+      if (data.current) {
+        const code = data.current.weather_code;
+        let condition = 'Clear';
+        let icon = '☀️';
+
+        if (code === 0) {
+          condition = 'Clear';
+          icon = '☀️';
+        } else if (code >= 1 && code <= 3) {
+          condition = 'Cloudy';
+          icon = '⛅';
+        } else if (code === 45 || code === 48) {
+          condition = 'Fog';
+          icon = '🌫️';
+        } else if ((code >= 51 && code <= 55) || (code >= 80 && code <= 82)) {
+          condition = 'Rain';
+          icon = '🌦️';
+        } else if (code >= 61 && code <= 65) {
+          condition = 'HeavyRain';
+          icon = '🌧️';
+        } else if (code >= 71 && code <= 77) {
+          condition = 'Snow';
+          icon = '❄️';
+        } else if (code >= 95) {
+          condition = 'Thunderstorm';
+          icon = '⚡';
+        }
+
+        set({
+          weather: {
+            temp: Math.round(data.current.temperature_2m),
+            feelsLike: Math.round(data.current.apparent_temperature),
+            humidity: data.current.relative_humidity_2m,
+            windSpeed: data.current.wind_speed_10m,
+            condition,
+            icon,
+          },
+        });
+      }
+    } catch (error) {
+      console.error('Failed to fetch weather:', error);
+    }
+  },
 }));

@@ -1,0 +1,66 @@
+/* ============================================
+   Deep Ocean Live Wallpaper — Keyframe Animations
+   ============================================ */
+
+/* --- Background gradient hue shift (very subtle, stays in deep ocean tones) --- */
+@keyframes ocean-hue-shift {
+  0%   { filter: hue-rotate(0deg); }
+  50%  { filter: hue-rotate(15deg); }
+  100% { filter: hue-rotate(0deg); }
+}
+
+/* --- Wave horizontal drift — each layer at different speed --- */
+@keyframes wave-drift-1 {
+  0%   { transform: translateX(0%) scaleY(1); }
+  50%  { transform: translateX(-25%) scaleY(1.05); }
+  100% { transform: translateX(0%) scaleY(1); }
+}
+
+@keyframes wave-drift-2 {
+  0%   { transform: translateX(0%) scaleY(1); }
+  50%  { transform: translateX(20%) scaleY(0.95); }
+  100% { transform: translateX(0%) scaleY(1); }
+}
+
+@keyframes wave-drift-3 {
+  0%   { transform: translateX(0%) scaleY(1); }
+  50%  { transform: translateX(-15%) scaleY(1.08); }
+  100% { transform: translateX(0%) scaleY(1); }
+}
+
+@keyframes wave-drift-4 {
+  0%   { transform: translateX(0%) scaleY(1); }
+  50%  { transform: translateX(30%) scaleY(0.92); }
+  100% { transform: translateX(0%) scaleY(1); }
+}
+
+/* --- Aurora glow bands — slow position + opacity shift --- */
+@keyframes aurora-drift-1 {
+  0%   { transform: translateX(-10%) rotate(-3deg) scaleX(1); opacity: 0.12; }
+  33%  { transform: translateX(5%) rotate(1deg) scaleX(1.1); opacity: 0.2; }
+  66%  { transform: translateX(-5%) rotate(-1deg) scaleX(0.95); opacity: 0.15; }
+  100% { transform: translateX(-10%) rotate(-3deg) scaleX(1); opacity: 0.12; }
+}
+
+@keyframes aurora-drift-2 {
+  0%   { transform: translateX(10%) rotate(2deg) scaleX(1); opacity: 0.1; }
+  33%  { transform: translateX(-8%) rotate(-2deg) scaleX(1.15); opacity: 0.18; }
+  66%  { transform: translateX(3%) rotate(0deg) scaleX(0.9); opacity: 0.08; }
+  100% { transform: translateX(10%) rotate(2deg) scaleX(1); opacity: 0.1; }
+}
+
+@keyframes aurora-drift-3 {
+  0%   { transform: translateX(0%) rotate(0deg); opacity: 0.08; }
+  50%  { transform: translateX(-15%) rotate(-2deg); opacity: 0.14; }
+  100% { transform: translateX(0%) rotate(0deg); opacity: 0.08; }
+}
+
+/* --- Reduced motion: disable all movement --- */
+@media (prefers-reduced-motion: reduce) {
+  .wallpaper-animated {
+    animation: none !important;
+  }
+  .wallpaper-canvas {
+    display: none !important;
+  }
+}

@@ -16,12 +16,12 @@ describe('WebBrowser', () => {
 
   it('shows Korean tab text', () => {
     render(<WebBrowser />);
-    expect(screen.getByText('새 사생활 보호 탭')).toBeInTheDocument();
+    expect(screen.getByText('하나의 포트폴리오')).toBeInTheDocument();
   });
 
   it('shows English tab text when locale is en', () => {
     useDesktopStore.setState({ locale: 'en' });
     render(<WebBrowser />);
-    expect(screen.getByText('New Private Tab')).toBeInTheDocument();
+    expect(screen.getByText("Hana's Portfolio")).toBeInTheDocument();
   });
 });

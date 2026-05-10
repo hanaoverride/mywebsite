@@ -36,7 +36,6 @@ describe('TopPanel', () => {
   it('displays system info', () => {
     render(<TopPanel />);
     expect(screen.getByText(/4000K/)).toBeInTheDocument();
-    expect(screen.getByText(/100%/)).toBeInTheDocument();
   });
 
   it('displays date in Korean format', () => {

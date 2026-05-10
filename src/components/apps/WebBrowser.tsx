@@ -12,7 +12,7 @@ export default function WebBrowser({ children }: { children?: ReactNode }) {
     <div className="h-full flex flex-col" data-testid="web-browser">
       <div className="flex items-center bg-[#2b1a3d] px-2 py-1 gap-1">
         <div className="flex items-center gap-1.5 bg-[#3a2550] rounded-t-lg px-3 py-1.5 text-white text-xs min-w-[140px]">
-          <span className="truncate">{isKo ? '새 사생활 보호 탭' : 'New Private Tab'}</span>
+          <span className="truncate">{isKo ? '하나의 포트폴리오' : "Hana's Portfolio"}</span>
           <button className="hover:bg-white/10 rounded p-0.5"><X size={12} /></button>
         </div>
         <button className="text-gray-400 hover:text-white p-1"><Plus size={14} /></button>
@@ -32,7 +32,7 @@ export default function WebBrowser({ children }: { children?: ReactNode }) {
           <span className="text-gray-400 text-xs flex-1 truncate">
             {children
               ? `https://portfolio.local/${locale}`
-              : (isKo ? 'Google 검색 또는 주소 입력' : 'Search Google or type a URL')
+              : (isKo ? '사이트 주소 입력' : 'Type a URL')
             }
           </span>
         </div>

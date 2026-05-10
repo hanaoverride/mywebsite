@@ -111,13 +111,16 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
     };
   }, [win.id, moveWindow, resizeWindow]);
 
-  if (win.minimized) return null;
-
   return (
     <motion.div
       data-testid={`window-${win.id}`}
-      initial={{ opacity: 0, scale: 0.9, y: 20 }}
-      animate={{
+      initial={{ opacity: 0, scale: 0.9, y: 20, left: win.x, top: win.y }}
+      animate={win.minimized ? {
+        opacity: 0,
+        scale: 0,
+        top: '100%',
+        pointerEvents: 'none' as const,
+      } : {
         opacity: 1,
         scale: 1,
         y: 0,
@@ -125,6 +128,7 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
         top: win.maximized ? 32 : win.y,
         width: win.maximized ? '100%' : win.width,
         height: win.maximized ? 'calc(100% - 32px - 56px)' : win.height,
+        pointerEvents: 'auto' as const,
       }}
       exit={{ opacity: 0, scale: 0.9, y: 20 }}
       transition={
@@ -154,40 +158,46 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
         data-testid={`titlebar-${win.id}`}
       >
         {/* Window control buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center -ml-2">
           <button
             onClick={(e) => {
               e.stopPropagation();
               closeApp(win.id);
             }}
-            className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 transition-colors"
+            className="group w-8 h-8 flex items-center justify-center"
             aria-label="Close"
             data-testid={`close-${win.id}`}
-          />
+          >
+            <div className="w-3 h-3 rounded-full bg-red-500 group-hover:bg-red-400 group-active:bg-red-600 transition-all duration-200 group-hover:scale-110 group-active:scale-90 shadow-sm" />
+          </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               minimizeApp(win.id);
             }}
-            className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 transition-colors"
+            className="group w-8 h-8 flex items-center justify-center"
             aria-label="Minimize"
             data-testid={`minimize-${win.id}`}
-          />
+          >
+            <div className="w-3 h-3 rounded-full bg-yellow-500 group-hover:bg-yellow-400 group-active:bg-yellow-600 transition-all duration-200 group-hover:scale-110 group-active:scale-90 shadow-sm" />
+          </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
               maximizeApp(win.id);
             }}
-            className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 transition-colors"
+            className="group w-8 h-8 flex items-center justify-center"
             aria-label="Maximize"
             data-testid={`maximize-${win.id}`}
-          />
+          >
+            <div className="w-3 h-3 rounded-full bg-green-500 group-hover:bg-green-400 group-active:bg-green-600 transition-all duration-200 group-hover:scale-110 group-active:scale-90 shadow-sm" />
+          </button>
         </div>
-        <span className="flex-1 text-center text-xs text-gray-400 truncate mx-2">
+        <span className="flex-1 text-center text-xs text-gray-400 font-medium truncate mx-2">
           {win.title}
         </span>
-        {/* Spacer for visual symmetry with button area */}
-        <div className="w-[52px] flex-shrink-0" />
+        {/* Spacer for visual symmetry with button area - 88px total (80px spacer + 8px padding) */}
+        <div className="w-20 flex-shrink-0" />
       </div>
 
       {/* Content area */}

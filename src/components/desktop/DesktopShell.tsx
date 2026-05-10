@@ -1,9 +1,9 @@
 import { ReactNode } from 'react';
-import DesktopWallpaper from './DesktopWallpaper';
 import WindowManager from './WindowManager';
 import SleepScreen from './SleepScreen';
 import Menu from './Menu';
 import { AnimatePresence } from 'framer-motion';
+import ColorTemperatureOverlay from './ColorTemperatureOverlay';
 
 interface DesktopShellProps {
   children: ReactNode;
@@ -18,7 +18,7 @@ export default function DesktopShell({ children, panel, dock }: DesktopShellProp
       className="relative w-screen h-screen overflow-hidden select-none flex flex-col"
       style={{ fontFamily: 'system-ui, sans-serif' }}
     >
-      <DesktopWallpaper />
+      <ColorTemperatureOverlay />
       <AnimatePresence>
         <Menu />
       </AnimatePresence>
@@ -34,4 +34,3 @@ export default function DesktopShell({ children, panel, dock }: DesktopShellProp
     </div>
   );
 }
-

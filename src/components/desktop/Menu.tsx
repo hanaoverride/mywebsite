@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import type { AppId } from '@/types/desktop';
 import {
@@ -12,7 +12,6 @@ import {
   FileText,
   Gamepad2,
   Moon,
-  Search,
   Monitor,
   Code,
   Gamepad,
@@ -40,6 +39,7 @@ const MENU_APPS: { id: AppId; icon: typeof Terminal; label: string }[] = [
 ];
 
 export default function Menu() {
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const menuOpen = useDesktopStore((s) => s.menuOpen);
   const toggleMenu = useDesktopStore((s) => s.toggleMenu);
   const openApp = useDesktopStore((s) => s.openApp);
@@ -70,6 +70,16 @@ export default function Menu() {
     setIsSleepMode(true);
   };
 
+  const filteredApps = MENU_APPS.filter((app) => {
+    if (selectedCategory === 'all') return true;
+    if (selectedCategory === 'development') return app.id === 'textviewer';
+    if (selectedCategory === 'games') return app.id === 'blackjack';
+    if (selectedCategory === 'internet') return app.id === 'browser';
+    if (selectedCategory === 'multimedia') return app.id === 'video';
+    if (selectedCategory === 'office') return app.id === 'textviewer';
+    return false;
+  });
+
   return (
     <motion.div
       data-testid="menu-overlay"
@@ -84,10 +94,16 @@ export default function Menu() {
         <div className="w-48 bg-gray-800/50 border-r border-gray-700/30 py-3 flex flex-col gap-0.5">
           {CATEGORIES.map((cat) => {
             const Icon = cat.icon;
+            const isActive = selectedCategory === cat.id;
             return (
               <button
                 key={cat.id}
-                className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:bg-white/5 hover:text-white transition-colors text-left"
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`flex items-center gap-2 px-3 py-2 text-sm transition-colors text-left ${
+                  isActive 
+                    ? 'bg-blue-600/30 text-white' 
+                    : 'text-gray-400 hover:bg-white/5 hover:text-white'
+                }`}
               >
                 <Icon size={16} />
                 <span>{cat.label}</span>
@@ -97,7 +113,7 @@ export default function Menu() {
         </div>
 
         <div className="flex-1 p-4 grid grid-cols-3 gap-3 content-start">
-          {MENU_APPS.map((app) => {
+          {filteredApps.map((app) => {
             const Icon = app.icon;
             return (
               <button
@@ -114,6 +130,7 @@ export default function Menu() {
         </div>
       </div>
 
+
       <div className="flex items-center justify-between px-4 py-2 bg-gray-800/50 border-t border-gray-700/30">
         <button
           data-testid="menu-sleep"
@@ -123,10 +140,6 @@ export default function Menu() {
           <Moon size={16} />
           <span>{locale === 'ko' ? '절전' : 'Sleep'}</span>
         </button>
-        <div className="flex items-center gap-2 px-3 py-1 bg-gray-700/50 rounded-lg text-gray-500 text-sm w-48">
-          <Search size={14} />
-          <span>Search...</span>
-        </div>
       </div>
     </motion.div>
   );
