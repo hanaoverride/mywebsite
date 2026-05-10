@@ -94,13 +94,15 @@
     },
     "video": {
       "title": "비디오 플레이어",
-      "description": "유튜브 채널로 연결됩니다",
+      "description": "비디오를 재생합니다",
       "open": "열기",
-      "notConfigured": "YouTube URL이 설정되지 않았습니다"
+      "notConfigured": "YouTube URL이 설정되지 않았습니다",
+      "nowPlaying": "현재 재생 중",
+      "viewOnYoutube": "YouTube에서 보기"
     },
     "textviewer": {
       "title": "README.md — 텍스트 뷰어",
-      "defaultContent": "Linux 데스크탑 포트폴리오에 오신 것을 환영합니다!\n\n이 사이트는 Next.js로 제작된 Linux 데스크탑 GUI 형태의 포트폴리오입니다.\n\n# 정보\n하단 도크에서 앱을 실행하거나 터미널에서 명령어를 입력해보세요.\n\n# 기능\n- 7개의 명령어 + 비밀 이스터 에그가 포함된 터미널\n- 포트폴리오가 포함된 웹 브라우저\n- 이메일 연락처 양식\n- 비디오 플레이어\n- 텍스트 뷰어 (지금 보고 계신 것입니다!)\n- 블랙잭 게임\n\n# 기술 스택\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
+      "defaultContent": "Linux 데스크탑 포트폴리오에 오신 것을 환영합니다!\n\n이 사이트는 개발자 hanaoverride의 실제 데스크탑 환경을 토대로 재구성된 포트폴리오입니다. 제가 평소 어떤 환경에서 서비스를 고민하고 개발하는지를 시각적으로 공유하고자 제작되었습니다.\n\n# 정보\n하단 도크에서 앱을 실행하거나 터미널에서 명령어를 입력해보세요.\n\n# 기능\n- 7개의 명령어 + 비밀 이스터 에그가 포함된 터미널\n- 포트폴리오가 포함된 웹 브라우저\n- 이메일 연락처 양식\n- 비디오 플레이어\n- 텍스트 뷰어 (지금 보고 계신 것입니다!)\n- 블랙잭 게임\n\n# 기술 스택\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
     },
     "blackjack": {
       "title": "블랙잭",

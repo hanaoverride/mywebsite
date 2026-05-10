@@ -1,19 +1,26 @@
 'use client';
 
-import { useRouter, usePathname } from 'next/navigation';
 import { useDesktopStore } from '@/store/desktop';
 
 export default function LanguageToggle() {
   const locale = useDesktopStore((s) => s.locale);
-  const router = useRouter();
-  const pathname = usePathname();
 
   const toggleLocale = () => {
     const nextLocale = locale === 'ko' ? 'en' : 'ko';
     useDesktopStore.getState().setLocale(nextLocale);
-    const newPathname = pathname?.replace(/^\/(ko|en)/, `/${nextLocale}`) ?? `/${nextLocale}`;
-    router.replace(newPathname);
+
+    // Update browser URL without triggering Next.js route navigation.
+    // This keeps the component tree intact (no re-mount) so stateful
+    // children like the VideoPlayer iframe stay alive.
+    const newPath = window.location.pathname.replace(/^\/(ko|en)/, `/${nextLocale}`);
+    window.history.replaceState(null, '', newPath);
+
+    // Update the HTML lang attribute
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = nextLocale;
+    }
   };
+
 
   return (
     <button
@@ -26,3 +33,4 @@ export default function LanguageToggle() {
     </button>
   );
 }
+

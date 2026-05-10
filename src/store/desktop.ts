@@ -90,10 +90,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   focusedApp: null,
   menuOpen: false,
   locale: 'ko',
-  panelTime: new Date().toLocaleTimeString('ko-KR', {
-    hour: '2-digit',
-    minute: '2-digit',
-  }),
+  panelTime: '', // Initialized on client
   zIndexCounter: 1,
   hasAutoOpened: false,
 
@@ -244,13 +241,15 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
     });
   },
 
-  updatePanelTime: () =>
+  updatePanelTime: () => {
+    const { locale } = get();
     set({
-      panelTime: new Date().toLocaleTimeString('ko-KR', {
+      panelTime: new Date().toLocaleTimeString(locale === 'ko' ? 'ko-KR' : 'en-US', {
         hour: '2-digit',
         minute: '2-digit',
       }),
-    }),
+    });
+  },
   isSleepMode: false,
   setIsSleepMode: (value: boolean) => set({ isSleepMode: value }),
   colorTemperature: 6500,

@@ -354,7 +354,7 @@ export default function Blackjack() {
                 <button 
                   onClick={deal} 
                   disabled={bet <= 0}
-                  className="blackjack-button bg-yellow-500 text-black border-none hover:bg-yellow-400 py-1 px-4 text-sm"
+                  className="blackjack-button bg-yellow-600 text-white border-none hover:bg-yellow-500 py-1 px-4 text-sm"
                 >
                   {t('deal')}
                 </button>
