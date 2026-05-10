@@ -35,6 +35,13 @@ const APP_TITLES: Record<AppId, string> = {
   blackjack: 'Blackjack',
 };
 
+function getAppTitle(id: AppId, locale: 'ko' | 'en'): string {
+  if (id === 'browser') {
+    return locale === 'ko' ? '사생활 보호 모드' : 'Private Browsing';
+  }
+  return APP_TITLES[id];
+}
+
 const DEFAULT_WIDTH = 800;
 const DEFAULT_HEIGHT = 550;
 const STAGGER_OFFSET = 30;
@@ -85,7 +92,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
         ...state.openApps,
         [id]: {
           id,
-          title: APP_TITLES[id],
+          title: getAppTitle(id, state.locale),
           x,
           y,
           width: DEFAULT_WIDTH,
