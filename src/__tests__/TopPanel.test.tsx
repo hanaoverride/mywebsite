@@ -1,8 +1,13 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import TopPanel from '@/components/desktop/TopPanel';
 import { useDesktopStore } from '@/store/desktop';
 import type { AppId, WindowState } from '@/types/desktop';
+
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ replace: vi.fn() }),
+  usePathname: () => '/ko',
+}));
 
 describe('TopPanel', () => {
   beforeEach(() => {

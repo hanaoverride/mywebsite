@@ -55,6 +55,9 @@ jobs:
             ghcr.io/${{ github.repository }}:latest
           build-args: |
             NEXT_PUBLIC_YOUTUBE_URL=${{ secrets.NEXT_PUBLIC_YOUTUBE_URL }}
+            NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+            NEXT_PUBLIC_EMAILJS_SERVICE_ID=${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
+            NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
 
       - name: Deploy notification
         run: 'echo "Docker image built and pushed: ghcr.io/${{ github.repository }}:${{ github.ref_name }}"'

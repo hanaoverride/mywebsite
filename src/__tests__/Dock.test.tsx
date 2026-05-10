@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import Dock from '@/components/desktop/Dock';
 import { useDesktopStore } from '@/store/desktop';
 
@@ -51,5 +51,83 @@ describe('Dock', () => {
     expect(useDesktopStore.getState().menuOpen).toBe(true);
     fireEvent.click(screen.getByTestId('dock-icon-menu'));
     expect(useDesktopStore.getState().menuOpen).toBe(false);
+  });
+
+  describe('integration: all 6 app icons', () => {
+    const SIX_APPS = ['terminal', 'browser', 'mail', 'video', 'textviewer', 'blackjack'] as const;
+
+    it('each icon click opens correct app', () => {
+      render(<Dock />);
+      for (const id of SIX_APPS) {
+        fireEvent.click(screen.getByTestId(`dock-icon-${id}`));
+        const state = useDesktopStore.getState();
+        expect(state.openApps[id]).toBeDefined();
+        expect(state.focusedApp).toBe(id);
+      }
+    });
+
+    it('all 6 apps open simultaneously → 6 dots visible', () => {
+      for (const id of SIX_APPS) {
+        useDesktopStore.getState().openApp(id);
+      }
+      render(<Dock />);
+      for (const id of SIX_APPS) {
+        expect(screen.getByTestId(`dock-dot-${id}`)).toBeInTheDocument();
+      }
+    });
+  });
+
+  describe('edge cases', () => {
+    it('clicking already-open app focuses it without creating duplicate', () => {
+      const store = useDesktopStore.getState();
+      store.openApp('terminal');
+      const firstEntry = useDesktopStore.getState().openApps.terminal!;
+      const firstZIndex = firstEntry.zIndex;
+      const openValues = Object.values(useDesktopStore.getState().openApps);
+      const appCount = openValues.filter(Boolean).length;
+
+      render(<Dock />);
+      fireEvent.click(screen.getByTestId('dock-icon-terminal'));
+
+      const state = useDesktopStore.getState();
+      expect(state.openApps.terminal).toBeDefined();
+      expect(state.focusedApp).toBe('terminal');
+      // zIndex increases (was focused)
+      expect(state.openApps.terminal!.zIndex).toBeGreaterThan(firstZIndex);
+      // No duplicate — same object reference identity preserved
+      expect(state.openApps.terminal!.id).toBe('terminal');
+      // App count unchanged
+      const newOpenValues = Object.values(state.openApps);
+      const newCount = newOpenValues.filter(Boolean).length;
+      expect(newCount).toBe(appCount);
+    });
+
+    it('dot disappears when app is closed via store', () => {
+      useDesktopStore.getState().openApp('browser');
+      render(<Dock />);
+      expect(screen.getByTestId('dock-dot-browser')).toBeInTheDocument();
+
+      act(() => {
+        useDesktopStore.getState().closeApp('browser');
+      });
+      expect(screen.queryByTestId('dock-dot-browser')).not.toBeInTheDocument();
+    });
+
+    it('menu icon never shows a dot', () => {
+      useDesktopStore.getState().openApp('browser');
+      render(<Dock />);
+      // browser has a dot
+      expect(screen.getByTestId('dock-dot-browser')).toBeInTheDocument();
+      // menu never does
+      expect(screen.queryByTestId('dock-dot-menu')).not.toBeInTheDocument();
+    });
+
+    it('clicking dock icon when menu is open does not interfere', () => {
+      useDesktopStore.setState({ menuOpen: true });
+      render(<Dock />);
+      fireEvent.click(screen.getByTestId('dock-icon-terminal'));
+      expect(useDesktopStore.getState().openApps.terminal).toBeDefined();
+      expect(useDesktopStore.getState().menuOpen).toBe(true); // menu stays open
+    });
   });
 });

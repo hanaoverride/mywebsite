@@ -65,6 +65,31 @@ export default function Blackjack() {
 
   const dealerDrawRef = useRef(false);
 
+  const resolveDealerTurn = useCallback(
+    (finalDealerHand: Card[]) => {
+      dealerDrawRef.current = false;
+      setDealerHand(finalDealerHand);
+      setPhase('result');
+
+      const pVal = handValue(playerHand);
+      const dVal = handValue(finalDealerHand);
+
+      if (dVal.value > 21) {
+        setResult('win');
+        setBalance((b) => b + bet);
+      } else if (pVal.value > dVal.value) {
+        setResult('win');
+        setBalance((b) => b + bet);
+      } else if (pVal.value < dVal.value) {
+        setResult('lose');
+        setBalance((b) => b - bet);
+      } else {
+        setResult('push');
+      }
+    },
+    [playerHand, bet]
+  );
+
   // Dealer auto-draw during dealerTurn phase
   useEffect(() => {
     if (phase !== 'dealerTurn' || dealerDrawRef.current) return;
@@ -100,32 +125,7 @@ export default function Blackjack() {
     };
 
     drawNext(deck, dealerHand);
-  }, [phase]);
-
-  const resolveDealerTurn = useCallback(
-    (finalDealerHand: Card[]) => {
-      dealerDrawRef.current = false;
-      setDealerHand(finalDealerHand);
-      setPhase('result');
-
-      const pVal = handValue(playerHand);
-      const dVal = handValue(finalDealerHand);
-
-      if (dVal.value > 21) {
-        setResult('win');
-        setBalance((b) => b + bet);
-      } else if (pVal.value > dVal.value) {
-        setResult('win');
-        setBalance((b) => b + bet);
-      } else if (pVal.value < dVal.value) {
-        setResult('lose');
-        setBalance((b) => b - bet);
-      } else {
-        setResult('push');
-      }
-    },
-    [playerHand, bet]
-  );
+  }, [phase, deck, dealerHand, resolveDealerTurn]);
 
   const adjustBet = useCallback(
     (amount: number) => {

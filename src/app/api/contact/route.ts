@@ -15,7 +15,13 @@ function isRateLimited(ip: string): boolean {
   return entry.count > RATE_LIMIT;
 }
 
-function validate(body: any): string | null {
+interface ContactBody {
+  from_name?: string;
+  from_email?: string;
+  subject?: string;
+  message?: string;
+}
+function validate(body: ContactBody): string | null {
   if (!body.from_name?.trim()) return 'Name is required';
   if (!body.from_email?.trim()) return 'Email is required';
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(body.from_email)) return 'Invalid email format';

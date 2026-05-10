@@ -6,7 +6,6 @@ interface DesktopStore {
   openApps: Record<AppId, WindowState | undefined>;
   focusedApp: AppId | null;
   menuOpen: boolean;
-  shutdownDialogOpen: boolean;
   locale: 'ko' | 'en';
   panelTime: string;
   zIndexCounter: number;
@@ -20,10 +19,10 @@ interface DesktopStore {
   moveWindow: (id: AppId, x: number, y: number) => void;
   resizeWindow: (id: AppId, width: number, height: number) => void;
   toggleMenu: () => void;
-  showShutdownDialog: () => void;
-  hideShutdownDialog: () => void;
   setLocale: (locale: 'ko' | 'en') => void;
   updatePanelTime: () => void;
+  isSleepMode: boolean;
+  setIsSleepMode: (value: boolean) => void;
 }
 
 const APP_TITLES: Record<AppId, string> = {
@@ -58,7 +57,6 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   openApps: {} as Record<AppId, WindowState | undefined>,
   focusedApp: null,
   menuOpen: false,
-  shutdownDialogOpen: false,
   locale: 'ko',
   panelTime: new Date().toLocaleTimeString('ko-KR', {
     hour: '2-digit',
@@ -187,10 +185,6 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
 
   toggleMenu: () => set((s) => ({ menuOpen: !s.menuOpen })),
 
-  showShutdownDialog: () => set({ shutdownDialogOpen: true }),
-
-  hideShutdownDialog: () => set({ shutdownDialogOpen: false }),
-
   setLocale: (locale: 'ko' | 'en') => set({ locale }),
 
   updatePanelTime: () =>
@@ -200,4 +194,6 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
         minute: '2-digit',
       }),
     }),
+  isSleepMode: false,
+  setIsSleepMode: (value: boolean) => set({ isSleepMode: value }),
 }));

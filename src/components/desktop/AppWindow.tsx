@@ -1,5 +1,6 @@
 'use client';
 
+import { motion, AnimatePresence } from 'framer-motion';
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import type { WindowState } from '@/types/desktop';
@@ -35,8 +36,10 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
   const isDraggingRef = useRef(false);
   const isResizingRef = useRef(false);
 
-  isDraggingRef.current = isDragging;
-  isResizingRef.current = isResizing;
+  useEffect(() => {
+    isDraggingRef.current = isDragging;
+    isResizingRef.current = isResizing;
+  }, [isDragging, isResizing]);
 
   const handleTitleMouseDown = useCallback(
     (e: React.MouseEvent) => {
@@ -111,20 +114,37 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
   if (win.minimized) return null;
 
   return (
-    <div
+    <motion.div
       data-testid={`window-${win.id}`}
-      className="absolute flex flex-col rounded-lg overflow-hidden shadow-2xl shadow-black/50 border border-gray-700/50"
-      style={{
+      initial={{ opacity: 0, scale: 0.9, y: 20 }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        y: 0,
         left: win.maximized ? 0 : win.x,
         top: win.maximized ? 32 : win.y,
         width: win.maximized ? '100%' : win.width,
-        height: win.maximized
-          ? 'calc(100% - 32px - 56px)'
-          : win.height,
+        height: win.maximized ? 'calc(100% - 32px - 56px)' : win.height,
+      }}
+      exit={{ opacity: 0, scale: 0.9, y: 20 }}
+      transition={
+        isDragging || isResizing
+          ? { duration: 0 }
+          : {
+              type: 'spring',
+              damping: 30,
+              stiffness: 300,
+              mass: 0.8,
+            }
+      }
+
+      className="absolute flex flex-col rounded-lg overflow-hidden shadow-2xl shadow-black/50 border border-gray-700/50"
+      style={{
         zIndex: win.zIndex,
       }}
       onMouseDown={() => focusApp(win.id)}
     >
+
       {/* Title bar */}
       <div
         className={`flex items-center h-8 bg-gray-900/95 px-2 select-none flex-shrink-0 ${
@@ -181,6 +201,7 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
           onMouseDown={handleResizeStart}
         />
       )}
-    </div>
+    </motion.div>
   );
 }
+

@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useMemo } from 'react';
 
 const DEFAULT_CONTENT = `Welcome to the Linux Desktop Portfolio!
 
@@ -22,13 +22,9 @@ React, Next.js, TypeScript, Tailwind CSS, Zustand`;
 
 export default function TextViewer() {
   const contentRef = useRef<HTMLDivElement>(null);
-  const [lineCount, setLineCount] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
 
-  useEffect(() => {
-    const lines = DEFAULT_CONTENT.split('\n').length;
-    setLineCount(lines);
-  }, []);
+  const lineCount = useMemo(() => DEFAULT_CONTENT.split('\n').length, []);
 
   const handleScroll = () => {
     if (contentRef.current) {

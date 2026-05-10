@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import { Menu } from 'lucide-react';
+import LanguageToggle from '@/components/common/LanguageToggle';
 
 export default function TopPanel() {
   const panelTime = useDesktopStore((s) => s.panelTime);
@@ -45,7 +46,8 @@ export default function TopPanel() {
         <span title="Weather">⛅ {locale === 'ko' ? '맑음 16°C' : 'Clear 16°C'}</span>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center gap-2">
+        <LanguageToggle />
         <span data-testid="panel-time">{getFormattedDate()}</span>
       </div>
     </div>

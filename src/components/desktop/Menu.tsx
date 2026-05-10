@@ -1,5 +1,6 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import type { AppId } from '@/types/desktop';
@@ -10,7 +11,7 @@ import {
   Video,
   FileText,
   Gamepad2,
-  Power,
+  Moon,
   Search,
   Monitor,
   Code,
@@ -42,7 +43,8 @@ export default function Menu() {
   const menuOpen = useDesktopStore((s) => s.menuOpen);
   const toggleMenu = useDesktopStore((s) => s.toggleMenu);
   const openApp = useDesktopStore((s) => s.openApp);
-  const showShutdownDialog = useDesktopStore((s) => s.showShutdownDialog);
+  const setIsSleepMode = useDesktopStore((s) => s.setIsSleepMode);
+  const locale = useDesktopStore((s) => s.locale);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -63,15 +65,19 @@ export default function Menu() {
     toggleMenu();
   };
 
-  const handleShutdown = () => {
+  const handleSleep = () => {
     toggleMenu();
-    showShutdownDialog();
+    setIsSleepMode(true);
   };
 
   return (
-    <div
+    <motion.div
       data-testid="menu-overlay"
       ref={menuRef}
+      initial={{ opacity: 0, scale: 0.95, y: -10 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95, y: -10 }}
+      transition={{ duration: 0.2, ease: 'easeOut' }}
       className="absolute top-8 left-1 z-30 w-[60%] max-w-[600px] h-[55%] max-h-[500px] bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 border border-gray-700/30 flex flex-col overflow-hidden"
     >
       <div className="flex flex-1 overflow-hidden">
@@ -110,18 +116,19 @@ export default function Menu() {
 
       <div className="flex items-center justify-between px-4 py-2 bg-gray-800/50 border-t border-gray-700/30">
         <button
-          data-testid="menu-shutdown"
-          onClick={handleShutdown}
-          className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors text-sm"
+          data-testid="menu-sleep"
+          onClick={handleSleep}
+          className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 transition-colors text-sm"
         >
-          <Power size={16} />
-          <span>Power</span>
+          <Moon size={16} />
+          <span>{locale === 'ko' ? '절전' : 'Sleep'}</span>
         </button>
         <div className="flex items-center gap-2 px-3 py-1 bg-gray-700/50 rounded-lg text-gray-500 text-sm w-48">
           <Search size={14} />
           <span>Search...</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
+
