@@ -53,18 +53,35 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: validationError }, { status: 400 });
   }
 
-  const serviceId = process.env.EMAILJS_SERVICE_ID || 'placeholder';
-  const templateId = process.env.EMAILJS_TEMPLATE_ID || 'placeholder';
-  const privateKey = process.env.EMAILJS_PRIVATE_KEY || 'placeholder';
+  const serviceId = process.env.EMAILJS_SERVICE_ID;
+  const templateId = process.env.EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+  const privateKey = process.env.EMAILJS_PRIVATE_KEY;
+
+  if (!serviceId || !templateId || !publicKey) {
+    console.error('Missing EmailJS configuration:', { serviceId, templateId, publicKey });
+    return NextResponse.json(
+      { error: 'Email configuration is missing' },
+      { status: 500 }
+    );
+  }
 
   try {
+    console.log('Sending email with params:', {
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      hasPrivateKey: !!privateKey,
+    });
+
     const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         service_id: serviceId,
         template_id: templateId,
-        user_id: privateKey,
+        user_id: publicKey,
+        accessToken: privateKey,
         template_params: {
           from_name: body.from_name,
           from_email: body.from_email,
@@ -78,21 +95,25 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
+    const errorText = await response.text();
+    console.error('EmailJS error response:', response.status, errorText);
+
     const mailtoUrl = `mailto:hanaoverride@gmail.com?subject=${encodeURIComponent(body.subject)}&body=${encodeURIComponent(`From: ${body.from_name} (${body.from_email})\n\n${body.message}`)}`;
     return NextResponse.json(
       {
         success: false,
-        error: 'EmailJS service unavailable',
+        error: `EmailJS error: ${errorText}`,
         fallback: mailtoUrl,
       },
       { status: 502 },
     );
-  } catch {
+  } catch (error: any) {
+    console.error('Fetch error:', error);
     const mailtoUrl = `mailto:hanaoverride@gmail.com?subject=${encodeURIComponent(body.subject)}&body=${encodeURIComponent(`From: ${body.from_name} (${body.from_email})\n\n${body.message}`)}`;
     return NextResponse.json(
       {
         success: false,
-        error: 'Failed to send email',
+        error: error.message || 'Failed to send email',
         fallback: mailtoUrl,
       },
       { status: 502 },

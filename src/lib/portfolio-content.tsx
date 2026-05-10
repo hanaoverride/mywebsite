@@ -43,9 +43,21 @@ const TECH_ICONS: Record<string, string> = {
   'Zustand': '🐻', 'Node.js': '🟢', 'Docker': '🐳', 'Git': '🔀',
   'Linux': '🐧', 'Vitest': '⚡', 'Playwright': '🎭', 'WebSocket': '🔌',
   'D3.js': '📊', 'Commander.js': '⌨️',
+  'Python': '🐍', 'C#': '💠', 'C++': '👾', 'Java': '☕',
+  'Android': '🤖', 'FastAPI': '⚡', 'Unity': '🎮', 'Spring Boot': '🍃',
+  'Flutter': '🐦', 'AWS': '☁️', 'PyTorch': '🔥', 'LLM': '🧠',
+  'Computer Vision': '👁️', 'PostgreSQL': '🐘', 'MySQL': '🐬', 'SQLite': '🗄️',
+  'HTML/CSS/JS': '🌐', 'GSAP': '🪄', 'Three.js': '🧊', 'LangChain': '🦜',
+  'OpenAI': '🤖', 'EasyOCR': '👁️', 'PyMuPDF': '📄', 'ReportLab': '🛠️',
 };
 
-const PROJECT_ICONS = [<Globe key="g" size={22} />, <Terminal key="t" size={22} />, <Layers key="l" size={22} />];
+const PROJECT_ICONS = [
+  <Globe key="g" size={22} />,
+  <Layers key="l" size={22} />,
+  <Terminal key="t" size={22} />,
+  <Sparkles key="s" size={22} />,
+  <Code key="c" size={22} />
+];
 
 export default function PortfolioContent() {
   const locale = useDesktopStore((s) => s.locale);
@@ -279,6 +291,14 @@ export default function PortfolioContent() {
           line-height: 1;
         }
 
+        .pf-category-title {
+          font-size: 14px;
+          font-weight: 600;
+          color: var(--text-primary);
+          margin-bottom: 12px;
+          opacity: 0.9;
+        }
+
         /* ── Projects ── */
         .pf-projects-grid {
           display: flex;
@@ -471,11 +491,13 @@ export default function PortfolioContent() {
           <FadeInSection delay={0.5}>
             <div className="pf-status-bar">
               <div className="pf-status-item">
-                <span className="pf-status-value">11</span>
+                <span className="pf-status-value">
+                  {new Set(d.techStack.flatMap(cat => cat.skills.map(s => s.name))).size}
+                </span>
                 <span className="pf-status-label">{isKo ? '기술 스택' : 'Tech Stack'}</span>
               </div>
               <div className="pf-status-item">
-                <span className="pf-status-value">3</span>
+                <span className="pf-status-value">{d.projects.length}</span>
                 <span className="pf-status-label">{isKo ? '프로젝트' : 'Projects'}</span>
               </div>
               <div className="pf-status-item">
@@ -511,14 +533,21 @@ export default function PortfolioContent() {
           <div className="pf-section-title">
             {isKo ? '기술 스택' : 'Tech Stack'}
           </div>
-          <div className="pf-tech-grid" data-testid="tech-stack">
-            {d.techStack.map((tech, i) => (
-              <FadeInSection key={tech.name} delay={i * 0.04}>
-                <div className="pf-tech-pill">
-                  <span className="pf-tech-icon">{TECH_ICONS[tech.name] || '🔧'}</span>
-                  {tech.name}
+          <div className="pf-category-list">
+            {d.techStack.map((category, catIdx) => (
+              <div key={category.title.en} className="pf-category-group" style={{ marginBottom: catIdx === d.techStack.length - 1 ? 0 : '24px' }}>
+                <h3 className="pf-category-title">{isKo ? category.title.ko : category.title.en}</h3>
+                <div className="pf-tech-grid" data-testid={`tech-stack-${category.title.en.toLowerCase().replace(/\s+/g, '-')}`}>
+                  {category.skills.map((tech, i) => (
+                    <FadeInSection key={tech.name + i} delay={i * 0.04}>
+                      <div className="pf-tech-pill">
+                        <span className="pf-tech-icon">{TECH_ICONS[tech.name] || '🔧'}</span>
+                        {tech.name}
+                      </div>
+                    </FadeInSection>
+                  ))}
                 </div>
-              </FadeInSection>
+              </div>
             ))}
           </div>
         </FadeInSection>
