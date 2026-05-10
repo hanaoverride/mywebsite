@@ -1,0 +1,72 @@
+'use client';
+
+import { useRef, useState, useEffect } from 'react';
+
+const DEFAULT_CONTENT = `Welcome to the Linux Desktop Portfolio!
+
+This site is a Linux desktop GUI-style portfolio built with Next.js.
+
+# About
+Try launching apps from the bottom dock or typing commands in the terminal.
+
+# Features
+- Terminal with 7 commands + secret easter egg
+- Web Browser with portfolio
+- Email contact form
+- Video Player
+- Text Viewer (you're looking at it!)
+- Blackjack game
+
+# Tech Stack
+React, Next.js, TypeScript, Tailwind CSS, Zustand`;
+
+export default function TextViewer() {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [lineCount, setLineCount] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
+
+  useEffect(() => {
+    const lines = DEFAULT_CONTENT.split('\n').length;
+    setLineCount(lines);
+  }, []);
+
+  const handleScroll = () => {
+    if (contentRef.current) {
+      setScrollTop(contentRef.current.scrollTop);
+    }
+  };
+
+  return (
+    <div className="h-full flex bg-[#272822]" data-testid="text-viewer">
+      <div
+        className="w-12 flex-shrink-0 bg-[#1e1f1c] text-[#75715E] text-xs font-mono text-right px-2 py-3 select-none overflow-hidden border-r border-gray-700/30"
+        style={{ transform: `translateY(-${scrollTop}px)` }}
+      >
+        {Array.from({ length: lineCount }, (_, i) => (
+          <div key={i + 1} style={{ lineHeight: '1.5rem' }}>
+            {i + 1}
+          </div>
+        ))}
+      </div>
+      <div
+        ref={contentRef}
+        className="flex-1 overflow-auto text-[#F8F8F2] text-sm font-mono p-3"
+        style={{ lineHeight: '1.5rem' }}
+        onScroll={handleScroll}
+        data-testid="text-viewer-content"
+      >
+        {DEFAULT_CONTENT.split('\n').map((line, i) => (
+          <div key={i} className="whitespace-pre">
+            {line.startsWith('# ') ? (
+              <span className="text-yellow-300 font-bold">{line}</span>
+            ) : line.startsWith('#') ? (
+              <span className="text-orange-300">{line}</span>
+            ) : (
+              <span>{line}</span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
