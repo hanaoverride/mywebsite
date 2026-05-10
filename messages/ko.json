@@ -1,0 +1,106 @@
+{
+  "desktop": {
+    "panel": {
+      "timeFormat": "YYYY-MM-DD dddd, HH:MM",
+      "menuLabel": "메뉴",
+      "temperature": "4000K",
+      "battery": "100%",
+      "weather": "맑음 16°C"
+    },
+    "dock": {
+      "terminal": "터미널",
+      "browser": "웹 브라우저",
+      "mail": "메일",
+      "video": "비디오",
+      "textviewer": "텍스트 뷰어",
+      "blackjack": "블랙잭"
+    },
+    "menu": {
+      "categories": {
+        "all": "전체 애플리케이션",
+        "development": "개발",
+        "games": "게임",
+        "internet": "인터넷",
+        "multimedia": "멀티미디어",
+        "office": "오피스"
+      },
+      "search": "검색...",
+      "power": "전원"
+    },
+    "shutdown": {
+      "title": "시스템 종료",
+      "description": "시스템을 종료하시겠습니까?",
+      "cancel": "취소",
+      "confirm": "종료",
+      "closePage": "페이지를 닫아주세요"
+    }
+  },
+  "apps": {
+    "terminal": {
+      "title": "터미널",
+      "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
+      "promptUser": "hanaoverride",
+      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, exit",
+      "whoami": "hanaoverride",
+      "notFound": "command not found: {cmd}",
+      "exitMessage": "터미널 세션이 종료되었습니다"
+    },
+    "browser": {
+      "title": "사생활 보호 모드",
+      "tabName": "새 사생활 보호 탭",
+      "addressPlaceholder": "Google 검색 또는 주소 입력"
+    },
+    "mail": {
+      "title": "메일",
+      "name": "이름",
+      "email": "이메일",
+      "subject": "제목",
+      "message": "메시지",
+      "send": "보내기",
+      "sending": "전송 중...",
+      "success": "메일이 전송되었습니다!",
+      "error": "전송에 실패했습니다",
+      "fallback": "이메일 클라이언트 열기",
+      "validation": {
+        "nameRequired": "이름을 입력해주세요",
+        "emailRequired": "이메일을 입력해주세요",
+        "emailInvalid": "올바른 이메일을 입력해주세요",
+        "subjectRequired": "제목을 입력해주세요",
+        "messageRequired": "메시지를 입력해주세요",
+        "messageTooLong": "메시지는 1000자 이내로 작성해주세요"
+      }
+    },
+    "video": {
+      "title": "비디오 플레이어",
+      "description": "유튜브 채널로 연결됩니다",
+      "open": "열기",
+      "notConfigured": "YouTube URL이 설정되지 않았습니다"
+    },
+    "textviewer": {
+      "title": "README.md — 텍스트 뷰어",
+      "defaultContent": "안녕하세요! Linux 데스크탑 포트폴리오에 오신 것을 환영합니다.\n\n이 사이트는 Next.js로 제작된 Linux 데스크탑 GUI 형태의 포트폴리오입니다.\n\n하단 도크에서 앱을 실행하거나 터미널에서 명령어를 입력해보세요."
+    },
+    "blackjack": {
+      "title": "블랙잭",
+      "balance": "잔액",
+      "bet": "베팅",
+      "deal": "딜",
+      "hit": "히트",
+      "stand": "스탠드",
+      "reset": "리셋",
+      "win": "승리!",
+      "lose": "패배!",
+      "push": "무승부",
+      "blackjack": "블랙잭!",
+      "bust": "버스트!",
+      "gameOver": "게임 오버"
+    }
+  },
+  "common": {
+    "confirm": "확인",
+    "cancel": "취소",
+    "close": "닫기",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다"
+  }
+}

@@ -1,0 +1,4 @@
+Contact: mailto:hanaoverride@gmail.com
+Expires: 2027-12-31T23:59:59.000Z
+Preferred-Languages: ko, en
+Policy: https://example.com/security-policy

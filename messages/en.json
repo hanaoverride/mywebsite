@@ -1,0 +1,106 @@
+{
+  "desktop": {
+    "panel": {
+      "timeFormat": "YYYY-MM-DD dddd, HH:MM",
+      "menuLabel": "Menu",
+      "temperature": "4000K",
+      "battery": "100%",
+      "weather": "Clear 16°C"
+    },
+    "dock": {
+      "terminal": "Terminal",
+      "browser": "Web Browser",
+      "mail": "Mail",
+      "video": "Video",
+      "textviewer": "Text Viewer",
+      "blackjack": "Blackjack"
+    },
+    "menu": {
+      "categories": {
+        "all": "All Applications",
+        "development": "Development",
+        "games": "Games",
+        "internet": "Internet",
+        "multimedia": "Multimedia",
+        "office": "Office"
+      },
+      "search": "Search...",
+      "power": "Power"
+    },
+    "shutdown": {
+      "title": "Shut Down",
+      "description": "Shut down the system?",
+      "cancel": "Cancel",
+      "confirm": "Shut Down",
+      "closePage": "Please close this page"
+    }
+  },
+  "apps": {
+    "terminal": {
+      "title": "Terminal",
+      "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
+      "promptUser": "hanaoverride",
+      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, exit",
+      "whoami": "hanaoverride",
+      "notFound": "command not found: {cmd}",
+      "exitMessage": "Terminal session ended"
+    },
+    "browser": {
+      "title": "Private Browsing",
+      "tabName": "New Private Tab",
+      "addressPlaceholder": "Search Google or type a URL"
+    },
+    "mail": {
+      "title": "Mail",
+      "name": "Name",
+      "email": "Email",
+      "subject": "Subject",
+      "message": "Message",
+      "send": "Send",
+      "sending": "Sending...",
+      "success": "Email sent successfully!",
+      "error": "Failed to send",
+      "fallback": "Open email client",
+      "validation": {
+        "nameRequired": "Name is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "subjectRequired": "Subject is required",
+        "messageRequired": "Message is required",
+        "messageTooLong": "Message must be 1000 characters or less"
+      }
+    },
+    "video": {
+      "title": "Video Player",
+      "description": "Redirects to YouTube channel",
+      "open": "Open",
+      "notConfigured": "YouTube URL not configured"
+    },
+    "textviewer": {
+      "title": "README.md — Text Viewer",
+      "defaultContent": "Welcome to the Linux Desktop Portfolio!\n\nThis site is a Linux desktop GUI-style portfolio built with Next.js.\n\nTry launching apps from the bottom dock or typing commands in the terminal."
+    },
+    "blackjack": {
+      "title": "Blackjack",
+      "balance": "Balance",
+      "bet": "Bet",
+      "deal": "Deal",
+      "hit": "Hit",
+      "stand": "Stand",
+      "reset": "Reset",
+      "win": "You Win!",
+      "lose": "You Lose!",
+      "push": "Push",
+      "blackjack": "Blackjack!",
+      "bust": "Bust!",
+      "gameOver": "Game Over"
+    }
+  },
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "close": "Close",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  }
+}
