@@ -46,7 +46,8 @@
         "office": "Office"
       },
       "search": "Search...",
-      "power": "Power"
+      "power": "Power",
+      "sleep": "Sleep"
     },
     "shutdown": {
       "title": "Shut Down",
@@ -99,7 +100,7 @@
     },
     "textviewer": {
       "title": "README.md — Text Viewer",
-      "defaultContent": "Welcome to the Linux Desktop Portfolio!\n\nThis site is a Linux desktop GUI-style portfolio built with Next.js.\n\nTry launching apps from the bottom dock or typing commands in the terminal."
+      "defaultContent": "Welcome to the Linux Desktop Portfolio!\n\nThis site is a Linux desktop GUI-style portfolio built with Next.js.\n\n# About\nTry launching apps from the bottom dock or typing commands in the terminal.\n\n# Features\n- Terminal with 7 commands + secret easter egg\n- Web Browser with portfolio\n- Email contact form\n- Video Player\n- Text Viewer (you're looking at it!)\n- Blackjack game\n\n# Tech Stack\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
     },
     "blackjack": {
       "title": "Blackjack",

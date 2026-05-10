@@ -2,26 +2,25 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useDesktopStore } from '@/store/desktop';
+import { useTranslations } from 'next-intl';
 
 interface HistoryEntry {
   type: 'command' | 'output' | 'error';
   text: string;
 }
 
-const BANNER = `Available commands: whoami, video, mail, browser, text, blackjack, exit`;
-
 const HEART_ART = `  ****     ****
- ******   ******
-******** ********
-*****************
- ***************
-  *************
-   ***********
-    *********
-     *******
-      *****
-       ***
-        *`;
+  ******   ******
+ ******** ********
+ *****************
+  ***************
+   *************
+    ***********
+     *********
+      *******
+       *****
+        ***
+         *`;
 
 function getTimeStr(): string {
   const now = new Date();
@@ -29,10 +28,11 @@ function getTimeStr(): string {
 }
 
 export default function Terminal() {
+  const t = useTranslations('apps.terminal');
   const [input, setInput] = useState('');
   const [displayTime, setDisplayTime] = useState(getTimeStr());
   const [history, setHistory] = useState<HistoryEntry[]>([
-    { type: 'output', text: BANNER },
+    { type: 'output', text: t('commands') },
   ]);
   const [cmdHistory, setCmdHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
@@ -68,7 +68,7 @@ export default function Terminal() {
 
       switch (trimmed.toLowerCase()) {
         case 'whoami':
-          addOutput('hanaoverride');
+          addOutput(t('whoami'));
           break;
         case 'video':
           addOutput('Opening Video Player...');
@@ -91,7 +91,7 @@ export default function Terminal() {
           openApp('blackjack');
           break;
         case 'exit':
-          addOutput('Terminal session ended.');
+          addOutput(t('exitMessage'));
           setTimeout(() => closeApp('terminal'), 500);
           break;
         case 'love':
@@ -100,11 +100,11 @@ export default function Terminal() {
         case '':
           break;
         default:
-          addError(`command not found: ${trimmed}`);
+          addError(t('notFound', { cmd: trimmed }));
           break;
       }
     },
-    [openApp, closeApp, addOutput, addError],
+    [openApp, closeApp, addOutput, addError, t],
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

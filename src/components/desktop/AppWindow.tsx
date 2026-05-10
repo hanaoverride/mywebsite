@@ -17,6 +17,7 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
   const maximizeApp = useDesktopStore((s) => s.maximizeApp);
   const moveWindow = useDesktopStore((s) => s.moveWindow);
   const resizeWindow = useDesktopStore((s) => s.resizeWindow);
+  const markAppAsNotNew = useDesktopStore((s) => s.markAppAsNotNew);
 
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
@@ -110,11 +111,21 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
       window.removeEventListener('mouseup', handleMouseUp);
     };
   }, [win.id, moveWindow, resizeWindow]);
+  
+  useEffect(() => {
+    if (win.isNew) {
+      // Small delay to ensure the animation has a chance to start before we mark it as not new
+      const timer = setTimeout(() => {
+        markAppAsNotNew(win.id);
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [win.id, win.isNew, markAppAsNotNew]);
 
   return (
     <motion.div
       data-testid={`window-${win.id}`}
-      initial={{ opacity: 0, scale: 0.9, y: 20, left: win.x, top: win.y }}
+      initial={win.isNew ? { opacity: 0, scale: 0.9, y: 20, left: win.x, top: win.y } : false}
       animate={win.minimized ? {
         opacity: 0,
         scale: 0,

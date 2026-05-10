@@ -19,6 +19,7 @@ interface DesktopStore {
   maximizeApp: (id: AppId) => void;
   moveWindow: (id: AppId, x: number, y: number) => void;
   resizeWindow: (id: AppId, width: number, height: number) => void;
+  markAppAsNotNew: (id: AppId) => void;
   toggleMenu: () => void;
   setLocale: (locale: 'ko' | 'en') => void;
   updatePanelTime: () => void;
@@ -37,20 +38,30 @@ interface DesktopStore {
   fetchWeather: () => Promise<void>;
 }
 
-const APP_TITLES: Record<AppId, string> = {
-  terminal: 'Terminal',
-  browser: 'Web Browser',
-  mail: 'Mail',
-  video: 'Video Player',
-  textviewer: 'Text Viewer',
-  blackjack: 'Blackjack',
+const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
+  ko: {
+    terminal: '터미널',
+    browser: '웹 브라우저',
+    mail: '메일',
+    video: '비디오 플레이어',
+    textviewer: '텍스트 뷰어',
+    blackjack: '블랙잭',
+  },
+  en: {
+    terminal: 'Terminal',
+    browser: 'Web Browser',
+    mail: 'Mail',
+    video: 'Video Player',
+    textviewer: 'Text Viewer',
+    blackjack: 'Blackjack',
+  },
 };
 
 function getAppTitle(id: AppId, locale: 'ko' | 'en'): string {
   if (id === 'browser') {
     return locale === 'ko' ? '하나의 포트폴리오' : "Hana's Portfolio";
   }
-  return APP_TITLES[id];
+  return APP_TITLES[locale][id];
 }
 
 const DEFAULT_WIDTH = 800;
@@ -97,7 +108,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       set({
         openApps: {
           ...state.openApps,
-          [id]: { ...state.openApps[id]!, minimized: false, zIndex: newZIndex },
+          [id]: { ...state.openApps[id]!, minimized: false, zIndex: newZIndex, isNew: false },
         },
         focusedApp: id,
         zIndexCounter: newZIndex,
@@ -120,6 +131,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
           minimized: false,
           maximized: false,
           zIndex: newZIndex,
+          isNew: true,
         },
       },
       focusedApp: id,
@@ -205,10 +217,32 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       },
     }));
   },
+  
+  markAppAsNotNew: (id: AppId) => {
+    set((s) => ({
+      openApps: {
+        ...s.openApps,
+        [id]: s.openApps[id] ? { ...s.openApps[id]!, isNew: false } : undefined,
+      },
+    }));
+  },
 
   toggleMenu: () => set((s) => ({ menuOpen: !s.menuOpen })),
 
-  setLocale: (locale: 'ko' | 'en') => set({ locale }),
+  setLocale: (locale: 'ko' | 'en') => {
+    set((state) => {
+      const updatedOpenApps = { ...state.openApps };
+      (Object.keys(updatedOpenApps) as AppId[]).forEach((id) => {
+        if (updatedOpenApps[id]) {
+          updatedOpenApps[id] = {
+            ...updatedOpenApps[id]!,
+            title: getAppTitle(id, locale),
+          };
+        }
+      });
+      return { locale, openApps: updatedOpenApps };
+    });
+  },
 
   updatePanelTime: () =>
     set({

@@ -8,7 +8,7 @@ export interface PortfolioData {
 
 export const portfolioData: PortfolioData = {
   hero: {
-    name: { ko: '하나 오버라이드', en: 'Hana Override' },
+    name: { ko: 'hanaoverride', en: 'hanaoverride' },
     title: { ko: '풀스택 개발자', en: 'Full-Stack Developer' },
     tagline: { ko: 'Linux 데스크탑에서 영감을 받은 포트폴리오', en: 'A portfolio inspired by the Linux desktop' },
   },

@@ -11,7 +11,7 @@ describe('PortfolioContent', () => {
   it('renders hero section', () => {
     render(<PortfolioContent />);
     expect(screen.getByTestId('portfolio-content')).toBeInTheDocument();
-    expect(screen.getByText('하나 오버라이드')).toBeInTheDocument();
+    expect(screen.getByText('hanaoverride')).toBeInTheDocument();
   });
 
   it('renders tech stack badges', () => {
@@ -30,6 +30,6 @@ describe('PortfolioContent', () => {
   it('renders in English', () => {
     useDesktopStore.setState({ locale: 'en' });
     render(<PortfolioContent />);
-    expect(screen.getByText('Hana Override')).toBeInTheDocument();
+    expect(screen.getByText('hanaoverride')).toBeInTheDocument();
   });
 });

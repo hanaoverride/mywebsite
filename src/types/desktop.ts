@@ -10,6 +10,7 @@ export interface WindowState {
   minimized: boolean;
   maximized: boolean;
   zIndex: number;
+  isNew: boolean;
 }
 
 export interface DesktopState {

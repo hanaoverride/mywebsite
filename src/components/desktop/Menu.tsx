@@ -19,32 +19,34 @@ import {
   Clapperboard,
   Briefcase,
 } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Applications', icon: Monitor },
-  { id: 'development', label: 'Development', icon: Code },
-  { id: 'games', label: 'Games', icon: Gamepad },
-  { id: 'internet', label: 'Internet', icon: Wifi },
-  { id: 'multimedia', label: 'Multimedia', icon: Clapperboard },
-  { id: 'office', label: 'Office', icon: Briefcase },
+  { id: 'all', icon: Monitor },
+  { id: 'development', icon: Code },
+  { id: 'games', icon: Gamepad },
+  { id: 'internet', icon: Wifi },
+  { id: 'multimedia', icon: Clapperboard },
+  { id: 'office', icon: Briefcase },
 ];
 
-const MENU_APPS: { id: AppId; icon: typeof Terminal; label: string }[] = [
-  { id: 'terminal', icon: Terminal, label: 'Terminal' },
-  { id: 'browser', icon: Globe, label: 'Web Browser' },
-  { id: 'mail', icon: Mail, label: 'Mail' },
-  { id: 'video', icon: Video, label: 'Video Player' },
-  { id: 'textviewer', icon: FileText, label: 'Text Viewer' },
-  { id: 'blackjack', icon: Gamepad2, label: 'Blackjack' },
+const MENU_APPS: { id: AppId; icon: typeof Terminal }[] = [
+  { id: 'terminal', icon: Terminal },
+  { id: 'browser', icon: Globe },
+  { id: 'mail', icon: Mail },
+  { id: 'video', icon: Video },
+  { id: 'textviewer', icon: FileText },
+  { id: 'blackjack', icon: Gamepad2 },
 ];
 
 export default function Menu() {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const tMenu = useTranslations('desktop.menu');
+  const tDock = useTranslations('desktop.dock');
   const menuOpen = useDesktopStore((s) => s.menuOpen);
   const toggleMenu = useDesktopStore((s) => s.toggleMenu);
   const openApp = useDesktopStore((s) => s.openApp);
   const setIsSleepMode = useDesktopStore((s) => s.setIsSleepMode);
-  const locale = useDesktopStore((s) => s.locale);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -106,7 +108,7 @@ export default function Menu() {
                 }`}
               >
                 <Icon size={16} />
-                <span>{cat.label}</span>
+                <span>{tMenu(`categories.${cat.id}`)}</span>
               </button>
             );
           })}
@@ -123,7 +125,7 @@ export default function Menu() {
                 className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
               >
                 <Icon size={32} />
-                <span className="text-xs text-center">{app.label}</span>
+                <span className="text-xs text-center">{tDock(app.id)}</span>
               </button>
             );
           })}
@@ -138,7 +140,7 @@ export default function Menu() {
           className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-blue-400 hover:bg-blue-500/10 hover:text-blue-300 transition-colors text-sm"
         >
           <Moon size={16} />
-          <span>{locale === 'ko' ? '절전' : 'Sleep'}</span>
+          <span>{tMenu('sleep')}</span>
         </button>
       </div>
     </motion.div>

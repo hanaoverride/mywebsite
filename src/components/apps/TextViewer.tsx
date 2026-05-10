@@ -1,30 +1,15 @@
 'use client';
 
 import { useRef, useState, useMemo } from 'react';
-
-const DEFAULT_CONTENT = `Welcome to the Linux Desktop Portfolio!
-
-This site is a Linux desktop GUI-style portfolio built with Next.js.
-
-# About
-Try launching apps from the bottom dock or typing commands in the terminal.
-
-# Features
-- Terminal with 7 commands + secret easter egg
-- Web Browser with portfolio
-- Email contact form
-- Video Player
-- Text Viewer (you're looking at it!)
-- Blackjack game
-
-# Tech Stack
-React, Next.js, TypeScript, Tailwind CSS, Zustand`;
+import { useTranslations } from 'next-intl';
 
 export default function TextViewer() {
+  const t = useTranslations('apps.textviewer');
   const contentRef = useRef<HTMLDivElement>(null);
   const [scrollTop, setScrollTop] = useState(0);
 
-  const lineCount = useMemo(() => DEFAULT_CONTENT.split('\n').length, []);
+  const defaultContent = t('defaultContent');
+  const lineCount = useMemo(() => defaultContent.split('\n').length, [defaultContent]);
 
   const handleScroll = () => {
     if (contentRef.current) {
@@ -51,7 +36,7 @@ export default function TextViewer() {
         onScroll={handleScroll}
         data-testid="text-viewer-content"
       >
-        {DEFAULT_CONTENT.split('\n').map((line, i) => (
+        {defaultContent.split('\n').map((line, i) => (
           <div key={i} className="whitespace-pre">
             {line.startsWith('# ') ? (
               <span className="text-yellow-300 font-bold">{line}</span>
