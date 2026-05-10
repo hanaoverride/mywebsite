@@ -1,0 +1,127 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { useDesktopStore } from '@/store/desktop';
+import type { AppId } from '@/types/desktop';
+import {
+  Terminal,
+  Globe,
+  Mail,
+  Video,
+  FileText,
+  Gamepad2,
+  Power,
+  Search,
+  Monitor,
+  Code,
+  Gamepad,
+  Wifi,
+  Clapperboard,
+  Briefcase,
+} from 'lucide-react';
+
+const CATEGORIES = [
+  { id: 'all', label: 'All Applications', icon: Monitor },
+  { id: 'development', label: 'Development', icon: Code },
+  { id: 'games', label: 'Games', icon: Gamepad },
+  { id: 'internet', label: 'Internet', icon: Wifi },
+  { id: 'multimedia', label: 'Multimedia', icon: Clapperboard },
+  { id: 'office', label: 'Office', icon: Briefcase },
+];
+
+const MENU_APPS: { id: AppId; icon: typeof Terminal; label: string }[] = [
+  { id: 'terminal', icon: Terminal, label: 'Terminal' },
+  { id: 'browser', icon: Globe, label: 'Web Browser' },
+  { id: 'mail', icon: Mail, label: 'Mail' },
+  { id: 'video', icon: Video, label: 'Video Player' },
+  { id: 'textviewer', icon: FileText, label: 'Text Viewer' },
+  { id: 'blackjack', icon: Gamepad2, label: 'Blackjack' },
+];
+
+export default function Menu() {
+  const menuOpen = useDesktopStore((s) => s.menuOpen);
+  const toggleMenu = useDesktopStore((s) => s.toggleMenu);
+  const openApp = useDesktopStore((s) => s.openApp);
+  const showShutdownDialog = useDesktopStore((s) => s.showShutdownDialog);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        toggleMenu();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen, toggleMenu]);
+
+  if (!menuOpen) return null;
+
+  const handleAppClick = (id: AppId) => {
+    openApp(id);
+    toggleMenu();
+  };
+
+  const handleShutdown = () => {
+    toggleMenu();
+    showShutdownDialog();
+  };
+
+  return (
+    <div
+      data-testid="menu-overlay"
+      ref={menuRef}
+      className="absolute top-8 left-1 z-30 w-[60%] max-w-[600px] h-[55%] max-h-[500px] bg-gray-900/95 backdrop-blur-xl rounded-2xl shadow-2xl shadow-black/50 border border-gray-700/30 flex flex-col overflow-hidden"
+    >
+      <div className="flex flex-1 overflow-hidden">
+        <div className="w-48 bg-gray-800/50 border-r border-gray-700/30 py-3 flex flex-col gap-0.5">
+          {CATEGORIES.map((cat) => {
+            const Icon = cat.icon;
+            return (
+              <button
+                key={cat.id}
+                className="flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:bg-white/5 hover:text-white transition-colors text-left"
+              >
+                <Icon size={16} />
+                <span>{cat.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="flex-1 p-4 grid grid-cols-3 gap-3 content-start">
+          {MENU_APPS.map((app) => {
+            const Icon = app.icon;
+            return (
+              <button
+                key={app.id}
+                data-testid={`menu-app-${app.id}`}
+                onClick={() => handleAppClick(app.id)}
+                className="flex flex-col items-center gap-1 p-2 rounded-lg hover:bg-white/10 transition-colors text-gray-300 hover:text-white"
+              >
+                <Icon size={32} />
+                <span className="text-xs text-center">{app.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between px-4 py-2 bg-gray-800/50 border-t border-gray-700/30">
+        <button
+          data-testid="menu-shutdown"
+          onClick={handleShutdown}
+          className="flex items-center gap-1.5 px-3 py-1 rounded-lg text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors text-sm"
+        >
+          <Power size={16} />
+          <span>Power</span>
+        </button>
+        <div className="flex items-center gap-2 px-3 py-1 bg-gray-700/50 rounded-lg text-gray-500 text-sm w-48">
+          <Search size={14} />
+          <span>Search...</span>
+        </div>
+      </div>
+    </div>
+  );
+}

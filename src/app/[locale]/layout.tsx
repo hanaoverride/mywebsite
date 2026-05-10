@@ -1,6 +1,7 @@
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
+import DesktopShell from '@/components/desktop/DesktopShell';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -22,7 +23,9 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale}>
-      {children}
+      <DesktopShell panel={<div />} dock={<div />}>
+        {children}
+      </DesktopShell>
     </NextIntlClientProvider>
   );
 }
