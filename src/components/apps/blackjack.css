@@ -227,3 +227,20 @@
   from { transform: translateY(0); }
   to { transform: translateY(-10px); }
 }
+
+@media (max-width: 768px) {
+  .card {
+    width: 55px;
+    height: 80px;
+  }
+  .card-center {
+    font-size: 1.5rem;
+  }
+  .result-overlay {
+    padding: 1.5rem 2rem;
+    width: 80%;
+  }
+  .bust-text {
+    font-size: 2rem;
+  }
+}

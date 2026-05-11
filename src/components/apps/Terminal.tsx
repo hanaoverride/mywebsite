@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import { useTranslations } from 'next-intl';
+import { useIsMobile } from '@/hooks/useIsMobile';
 
 interface HistoryEntry {
   type: 'command' | 'output' | 'error';
@@ -142,7 +143,7 @@ export default function Terminal() {
     }
   }, [history]);
 
-  const focusedApp = useDesktopStore((s) => s.focusedApp);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (focusedApp === 'terminal') {
@@ -151,8 +152,11 @@ export default function Terminal() {
   }, [focusedApp]);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    // Only auto-focus on non-mobile to avoid keyboard pop-up on page load
+    if (!isMobile) {
+      inputRef.current?.focus();
+    }
+  }, [isMobile]);
 
   return (
     <div
@@ -161,7 +165,7 @@ export default function Terminal() {
       data-testid="terminal"
     >
       <div className="text-xs text-cyan-400 px-3 py-2 border-b border-gray-700/50 flex justify-between flex-shrink-0">
-        <span>(base) ┌─(~)──(hanaoverride@hostname:pts/0)─┐</span>
+        <span>{isMobile ? 'hana@mobile:~' : '(base) ┌─(~)──(hanaoverride@hostname:pts/0)─┐'}</span>
         <span>{displayTime}</span>
       </div>
 
@@ -185,11 +189,11 @@ export default function Terminal() {
           </div>
         ))}
 
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap">
           <span className="text-yellow-300 whitespace-pre">
-            └─({displayTime})─❯{' '}
+            {isMobile ? '❯ ' : `└─(${displayTime})─❯ `}
           </span>
-          <span className="text-green-300">{input}</span>
+          <span className="text-green-300 break-all">{input}</span>
           <span
             className="inline-block w-2 h-[1.1em] bg-green-400 ml-px align-middle"
             data-testid="terminal-cursor"
@@ -207,25 +211,51 @@ export default function Terminal() {
         `}</style>
       </div>
 
-      <input
-        ref={inputRef}
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-        onBlur={() => {
-          // If the terminal is still the focused app, try to keep the focus
-          if (focusedApp === 'terminal') {
-            setTimeout(() => inputRef.current?.focus(), 10);
-          }
-        }}
-        className="absolute opacity-0 w-px h-px pointer-events-none left-[-1000px] top-[-1000px]"
-        autoFocus
-        autoComplete="off"
-        spellCheck={false}
-        data-testid="terminal-input"
-        aria-label="Terminal input"
-      />
+      {isMobile && (
+        <div className="p-2 bg-[#1e1e1e] border-t border-gray-700 flex gap-2 items-center">
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-1 bg-black/50 border border-gray-700 rounded px-3 py-2 text-white text-base focus:outline-none focus:border-cyan-500"
+            placeholder={t('commands')}
+            autoComplete="off"
+            spellCheck={false}
+          />
+          <button 
+            onClick={() => {
+              execute(input);
+              setInput('');
+            }}
+            className="bg-cyan-600 px-4 py-2 rounded text-white font-bold active:bg-cyan-700"
+          >
+            Go
+          </button>
+        </div>
+      )}
+
+      {!isMobile && (
+        <input
+          ref={inputRef}
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
+          onBlur={() => {
+            if (focusedApp === 'terminal') {
+              setTimeout(() => inputRef.current?.focus(), 10);
+            }
+          }}
+          className="absolute opacity-0 w-px h-px pointer-events-none left-[-1000px] top-[-1000px]"
+          autoFocus
+          autoComplete="off"
+          spellCheck={false}
+          data-testid="terminal-input"
+          aria-label="Terminal input"
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,7 @@
 import { hasLocale } from 'next-intl';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import DesktopShell from '@/components/desktop/DesktopShell';
-import TopPanel from '@/components/desktop/TopPanel';
-import Dock from '@/components/desktop/Dock';
+import ResponsiveShell from '@/components/common/ResponsiveShell';
 import ClientLocaleProvider from '@/components/providers/ClientLocaleProvider';
 import type { Metadata } from 'next';
 
@@ -26,9 +24,9 @@ export default async function LocaleLayout({
 
   return (
     <ClientLocaleProvider initialLocale={locale as 'ko' | 'en'}>
-      <DesktopShell panel={<TopPanel />} dock={<Dock />}>
+      <ResponsiveShell>
         {children}
-      </DesktopShell>
+      </ResponsiveShell>
     </ClientLocaleProvider>
   );
 }

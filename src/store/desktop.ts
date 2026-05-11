@@ -39,6 +39,10 @@ interface DesktopStore {
   shutdownDialogOpen: boolean;
   showShutdownDialog: () => void;
   hideShutdownDialog: () => void;
+
+  // Mobile state
+  mobileScreen: 'home' | 'app' | 'switcher';
+  setMobileScreen: (screen: 'home' | 'app' | 'switcher') => void;
 }
 
 const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
@@ -100,6 +104,9 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
 
   showShutdownDialog: () => set({ shutdownDialogOpen: true }),
   hideShutdownDialog: () => set({ shutdownDialogOpen: false }),
+
+  mobileScreen: 'home',
+  setMobileScreen: (screen) => set({ mobileScreen: screen }),
 
   openApp: (id: AppId) => {
     const state = get();

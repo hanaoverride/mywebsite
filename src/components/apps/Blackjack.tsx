@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { useDesktopStore } from '@/store/desktop';
+import { useIsMobile } from '@/hooks/useIsMobile';
 import './blackjack.css';
 
 type Suit = '♠' | '♥' | '♦' | '♣';
@@ -54,6 +55,7 @@ function handValue(hand: Card[]): { value: number; isSoft: boolean } {
 export default function Blackjack() {
   const locale = useDesktopStore((s) => s.locale);
   const isKo = locale === 'ko';
+  const isMobile = useIsMobile();
 
   const [deck, setDeck] = useState<Card[]>(() => createDeck());
   const [balance, setBalance] = useState(100);
