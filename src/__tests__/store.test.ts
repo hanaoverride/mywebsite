@@ -9,7 +9,7 @@ describe('Desktop Store', () => {
       focusedApp: null,
       menuOpen: false,
       shutdownDialogOpen: false,
-      locale: 'ko',
+      locale: 'en',
       panelTime: '',
       zIndexCounter: 1,
     });
@@ -139,6 +139,7 @@ describe('Desktop Store', () => {
   });
 
   it('should set locale to ko or en', () => {
+    useDesktopStore.getState().setLocale('ko');
     expect(useDesktopStore.getState().locale).toBe('ko');
     useDesktopStore.getState().setLocale('en');
     expect(useDesktopStore.getState().locale).toBe('en');

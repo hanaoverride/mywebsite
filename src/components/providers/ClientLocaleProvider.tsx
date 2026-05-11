@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode, useRef } from 'react';
+import { ReactNode, useRef, useEffect } from 'react';
 import { NextIntlClientProvider } from 'next-intl';
 import { useDesktopStore } from '@/store/desktop';
 
@@ -30,7 +30,9 @@ export default function ClientLocaleProvider({
 }) {
   const initialized = useRef(false);
 
-  if (!initialized.current) {
+  useEffect(() => {
+    if (initialized.current) return;
+
     // Synchronize the store with the server-side locale on the first client-side render
     useDesktopStore.setState({ locale: initialLocale });
     // Initialize panel time with the correct locale
@@ -48,7 +50,7 @@ export default function ClientLocaleProvider({
     }
 
     initialized.current = true;
-  }
+  }, [initialLocale]);
 
 
   const locale = useDesktopStore((s) => s.locale);

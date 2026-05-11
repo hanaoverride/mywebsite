@@ -20,7 +20,7 @@ function useInView(ref: React.RefObject<HTMLElement | null>, threshold = 0.15) {
   return isVisible;
 }
 
-function FadeInSection({ children, className = '', delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+function FadeInSection({ children, className = '', delay = 0, style }: { children: React.ReactNode; className?: string; delay?: number; style?: React.CSSProperties }) {
   const ref = useRef<HTMLDivElement>(null);
   const isVisible = useInView(ref);
   return (
@@ -31,6 +31,7 @@ function FadeInSection({ children, className = '', delay = 0 }: { children: Reac
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(32px)',
         transition: `opacity 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s, transform 0.7s cubic-bezier(0.16,1,0.3,1) ${delay}s`,
+        ...style,
       }}
     >
       {children}

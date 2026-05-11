@@ -107,13 +107,14 @@ export async function POST(request: NextRequest) {
       },
       { status: 502 },
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Failed to send email';
     console.error('Fetch error:', error);
     const mailtoUrl = `mailto:hanaoverride@gmail.com?subject=${encodeURIComponent(body.subject)}&body=${encodeURIComponent(`From: ${body.from_name} (${body.from_email})\n\n${body.message}`)}`;
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Failed to send email',
+        error: errorMessage,
         fallback: mailtoUrl,
       },
       { status: 502 },

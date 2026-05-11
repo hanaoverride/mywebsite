@@ -18,6 +18,7 @@ describe('TypeScript types', () => {
       minimized: false,
       maximized: false,
       zIndex: 1,
+      isNew: false,
     };
     expect(window.id).toBe('terminal');
     expect(window.zIndex).toBe(1);

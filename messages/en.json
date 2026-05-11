@@ -102,7 +102,7 @@
     },
     "textviewer": {
       "title": "README.md — Text Viewer",
-      "defaultContent": "Welcome to the portfolio of a versatile all-around developer!\n\nThis site is a portfolio reconstructed based on the actual desktop environment of developer hanaoverride. It was created to visually share the environment in which I normally contemplate and develop services.\n\n# Info\nLaunch apps from the dock below or type commands in the terminal.\n\n# Key Projects\n- Landing Page Examples: Animation landing pages based on GSAP/Three.js\n- PDF OCR by LLM: AI-based searchable PDF conversion pipeline\n- Full-Stack RAG Web: Document-based knowledge extraction service\n\n# Tech Stack\nReact, Next.js, Python, FastAPI, TypeScript, Tailwind CSS, OpenAI, PyTorch"
+      "defaultContent": "Welcome to the Portfolio of a Versatile All-Around Developer!\n\nThis site is a reconstructed portfolio based on developer hanaoverride's actual desktop environment. It was created to visually share the environment in which I brainstorm and develop services.\n\n# About\nTry launching apps from the bottom dock or typing commands in the terminal.\n\n# Features\n- Terminal with 7 commands + secret easter egg\n- Web Browser with portfolio\n- Email contact form\n- Video Player\n- Text Viewer (you're looking at it!)\n- Blackjack game\n\n# Tech Stack\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
     },
     "blackjack": {
       "title": "Blackjack",

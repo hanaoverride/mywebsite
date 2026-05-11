@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { useDesktopStore } from '@/store/desktop';
 import type { WindowState } from '@/types/desktop';

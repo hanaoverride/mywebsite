@@ -36,6 +36,9 @@ interface DesktopStore {
     icon: string;
   } | null;
   fetchWeather: () => Promise<void>;
+  shutdownDialogOpen: boolean;
+  showShutdownDialog: () => void;
+  hideShutdownDialog: () => void;
 }
 
 const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
@@ -93,6 +96,10 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   panelTime: '', // Initialized on client
   zIndexCounter: 1,
   hasAutoOpened: false,
+  shutdownDialogOpen: false,
+
+  showShutdownDialog: () => set({ shutdownDialogOpen: true }),
+  hideShutdownDialog: () => set({ shutdownDialogOpen: false }),
 
   openApp: (id: AppId) => {
     const state = get();
@@ -139,7 +146,8 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
 
   closeApp: (id: AppId) => {
     set((s) => {
-      const { [id]: _removed, ...rest } = s.openApps;
+      const rest = { ...s.openApps };
+      delete rest[id];
       const remaining = Object.values(rest).filter(Boolean) as WindowState[];
       let newFocused: AppId | null = s.focusedApp;
       if (s.focusedApp === id) {

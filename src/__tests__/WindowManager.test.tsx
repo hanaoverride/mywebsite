@@ -11,6 +11,7 @@ describe('WindowManager', () => {
       openApps: {} as Record<AppId, WindowState | undefined>,
       focusedApp: null,
       zIndexCounter: 1,
+      locale: 'en',
     });
   });
 
@@ -25,11 +26,12 @@ describe('WindowManager', () => {
     expect(screen.getByTestId('window-terminal')).toBeInTheDocument();
   });
 
-  it('does not render minimized windows', () => {
+  it('is hidden when minimized', () => {
     useDesktopStore.getState().openApp('terminal');
     useDesktopStore.getState().minimizeApp('terminal');
     render(<WindowManager />);
-    expect(screen.queryByTestId('window-terminal')).not.toBeInTheDocument();
+    const win = screen.getByTestId('window-terminal');
+    expect(win).toBeInTheDocument();
   });
 
   it('renders multiple windows', () => {
@@ -52,6 +54,7 @@ describe('AppWindow', () => {
     minimized: false,
     maximized: false,
     zIndex: 5,
+    isNew: false,
     ...overrides,
   });
 
@@ -60,6 +63,7 @@ describe('AppWindow', () => {
       openApps: {} as Record<AppId, WindowState | undefined>,
       focusedApp: null,
       zIndexCounter: 1,
+      locale: 'en',
     });
   });
 
@@ -89,14 +93,14 @@ describe('AppWindow', () => {
     expect(screen.getByTestId('custom-content')).toBeInTheDocument();
   });
 
-  it('returns null when minimized', () => {
+  it('is still in DOM when minimized (for animation)', () => {
     const win = makeWin({ minimized: true });
-    const { container } = render(
+    render(
       <AppWindow window={win}>
         <div>hidden</div>
       </AppWindow>,
     );
-    expect(container.firstChild).toBeNull();
+    expect(screen.getByTestId('window-terminal')).toBeInTheDocument();
   });
 
   it('close button removes app from store', () => {

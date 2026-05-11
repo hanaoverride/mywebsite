@@ -105,7 +105,7 @@ describe('MailingApp', () => {
   });
 
   it('shows error and fallback link when API returns fallback', async () => {
-    const fetchMock = vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
+    vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce(
       new Response(
         JSON.stringify({
           success: false,
