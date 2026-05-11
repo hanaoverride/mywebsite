@@ -142,6 +142,14 @@ export default function Terminal() {
     }
   }, [history]);
 
+  const focusedApp = useDesktopStore((s) => s.focusedApp);
+
+  useEffect(() => {
+    if (focusedApp === 'terminal') {
+      inputRef.current?.focus();
+    }
+  }, [focusedApp]);
+
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -205,7 +213,13 @@ export default function Terminal() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        className="absolute opacity-0 w-0 h-0 pointer-events-none"
+        onBlur={() => {
+          // If the terminal is still the focused app, try to keep the focus
+          if (focusedApp === 'terminal') {
+            setTimeout(() => inputRef.current?.focus(), 10);
+          }
+        }}
+        className="absolute opacity-0 w-px h-px pointer-events-none left-[-1000px] top-[-1000px]"
         autoFocus
         autoComplete="off"
         spellCheck={false}

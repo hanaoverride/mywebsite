@@ -377,19 +377,23 @@ export default function PortfolioContent() {
           border: 1px solid rgba(167,139,250,0.15);
           font-weight: 500;
         }
-        .pf-project-link {
+        .pf-project-link-icon {
           display: inline-flex;
           align-items: center;
-          gap: 4px;
-          font-size: 13px;
-          color: var(--accent);
-          text-decoration: none;
-          margin-top: 12px;
-          position: relative;
-          z-index: 1;
-          transition: gap 0.3s ease;
+          justify-content: center;
+          color: var(--text-muted);
+          transition: all 0.2s ease;
+          padding: 6px;
+          border-radius: 8px;
+          background: rgba(255,255,255,0.03);
+          border: 1px solid transparent;
         }
-        .pf-project-link:hover { gap: 8px; }
+        .pf-project-link-icon:hover {
+          color: var(--accent);
+          background: rgba(167,139,250,0.1);
+          border-color: rgba(167,139,250,0.2);
+          transform: translateY(-1px) scale(1.05);
+        }
 
         /* ── Contact ── */
         .pf-contact-grid {
@@ -569,6 +573,17 @@ export default function PortfolioContent() {
                       {PROJECT_ICONS[i] || <Layers size={22} />}
                     </div>
                     <div className="pf-project-name">{project.title}</div>
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        className="pf-project-link-icon"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={isKo ? '보기' : 'View'}
+                      >
+                        <ExternalLink size={16} />
+                      </a>
+                    )}
                   </div>
                   <p className="pf-project-desc">
                     {isKo ? project.description.ko : project.description.en}
@@ -578,11 +593,6 @@ export default function PortfolioContent() {
                       <span key={t} className="pf-project-tag">{t}</span>
                     ))}
                   </div>
-                  {project.link && (
-                    <a href={project.link} className="pf-project-link" target="_blank" rel="noopener noreferrer">
-                      <ExternalLink size={14} /> {isKo ? '보기' : 'View'}
-                    </a>
-                  )}
                 </div>
               </FadeInSection>
             ))}

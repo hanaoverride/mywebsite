@@ -125,7 +125,7 @@ export default function AppWindow({ window: win, children }: AppWindowProps) {
   return (
     <motion.div
       data-testid={`window-${win.id}`}
-      initial={win.isNew ? { opacity: 0, scale: 0.9, y: 20, left: win.x, top: win.y } : false}
+      initial={win.isNew ? { opacity: 0, scale: 0.9, y: 20, left: win.x, top: win.y, pointerEvents: 'none' } : false}
       animate={win.minimized ? {
         opacity: 0,
         scale: 0,
