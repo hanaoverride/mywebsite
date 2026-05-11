@@ -23,8 +23,8 @@ describe('Desktop Store', () => {
     expect(state.openApps.terminal!.title).toBe('Terminal');
     expect(state.openApps.terminal!.minimized).toBe(false);
     expect(state.openApps.terminal!.maximized).toBe(false);
-    expect(state.openApps.terminal!.width).toBe(800);
-    expect(state.openApps.terminal!.height).toBe(550);
+    expect(state.openApps.terminal!.width).toBe(750);
+    expect(state.openApps.terminal!.height).toBe(480);
     expect(state.focusedApp).toBe('terminal');
   });
 

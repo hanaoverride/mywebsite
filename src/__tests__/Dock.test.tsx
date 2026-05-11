@@ -13,6 +13,7 @@ describe('Dock', () => {
         video: undefined,
         textviewer: undefined,
         blackjack: undefined,
+        onboarding: undefined,
       },
       menuOpen: false,
       focusedApp: null,
@@ -20,7 +21,7 @@ describe('Dock', () => {
     });
   });
 
-  it('renders all 7 dock icons', () => {
+  it('renders all 8 dock icons', () => {
     render(<Dock />);
     expect(screen.getByTestId('dock-icon-terminal')).toBeInTheDocument();
     expect(screen.getByTestId('dock-icon-browser')).toBeInTheDocument();
@@ -28,6 +29,7 @@ describe('Dock', () => {
     expect(screen.getByTestId('dock-icon-video')).toBeInTheDocument();
     expect(screen.getByTestId('dock-icon-textviewer')).toBeInTheDocument();
     expect(screen.getByTestId('dock-icon-blackjack')).toBeInTheDocument();
+    expect(screen.getByTestId('dock-icon-onboarding')).toBeInTheDocument();
     expect(screen.getByTestId('dock-icon-menu')).toBeInTheDocument();
   });
 
@@ -53,12 +55,12 @@ describe('Dock', () => {
     expect(useDesktopStore.getState().menuOpen).toBe(false);
   });
 
-  describe('integration: all 6 app icons', () => {
-    const SIX_APPS = ['terminal', 'browser', 'mail', 'video', 'textviewer', 'blackjack'] as const;
+  describe('integration: all 7 app icons', () => {
+    const SEVEN_APPS = ['terminal', 'browser', 'mail', 'video', 'textviewer', 'blackjack', 'onboarding'] as const;
 
     it('each icon click opens correct app', () => {
       render(<Dock />);
-      for (const id of SIX_APPS) {
+      for (const id of SEVEN_APPS) {
         fireEvent.click(screen.getByTestId(`dock-icon-${id}`));
         const state = useDesktopStore.getState();
         expect(state.openApps[id]).toBeDefined();
@@ -66,12 +68,12 @@ describe('Dock', () => {
       }
     });
 
-    it('all 6 apps open simultaneously → 6 dots visible', () => {
-      for (const id of SIX_APPS) {
+    it('all 7 apps open simultaneously → 7 dots visible', () => {
+      for (const id of SEVEN_APPS) {
         useDesktopStore.getState().openApp(id);
       }
       render(<Dock />);
-      for (const id of SIX_APPS) {
+      for (const id of SEVEN_APPS) {
         expect(screen.getByTestId(`dock-dot-${id}`)).toBeInTheDocument();
       }
     });
@@ -81,6 +83,8 @@ describe('Dock', () => {
     it('clicking already-open app focuses it without creating duplicate', () => {
       const store = useDesktopStore.getState();
       store.openApp('terminal');
+      store.openApp('browser'); // Focus browser instead
+      
       const firstEntry = useDesktopStore.getState().openApps.terminal!;
       const firstZIndex = firstEntry.zIndex;
       const openValues = Object.values(useDesktopStore.getState().openApps);

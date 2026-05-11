@@ -12,11 +12,13 @@ export default function WindowManager() {
   const hasAutoOpened = useDesktopStore((s) => s.hasAutoOpened);
 
   useEffect(() => {
-    // Open textviewer on startup if not already open and never auto-opened before
-    if (!hasAutoOpened && !openApps.textviewer) {
-      openApp('textviewer');
+    if (!hasAutoOpened) {
+      const completed = localStorage.getItem('onboarding_completed');
+      if (completed !== 'true') {
+        openApp('onboarding');
+      }
     }
-  }, [hasAutoOpened, openApp, openApps.textviewer]);
+  }, [hasAutoOpened, openApp]);
 
   const windows = Object.values(openApps).filter(Boolean);
 

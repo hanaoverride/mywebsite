@@ -1,4 +1,4 @@
-export type AppId = 'terminal' | 'browser' | 'mail' | 'video' | 'textviewer' | 'blackjack';
+export type AppId = 'terminal' | 'browser' | 'mail' | 'video' | 'textviewer' | 'blackjack' | 'onboarding';
 
 export interface WindowState {
   id: AppId;

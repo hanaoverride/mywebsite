@@ -1,7 +1,7 @@
 'use client';
 
 import { useDesktopStore } from '@/store/desktop';
-import { X, Terminal, Globe, Mail, Video, FileText, Gamepad2 } from 'lucide-react';
+import { X, Terminal, Globe, Mail, Video, FileText, Gamepad2, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { AppId } from '@/types/desktop';
 
@@ -12,6 +12,7 @@ const APP_ICONS: Record<AppId, typeof Terminal> = {
   video: Video,
   textviewer: FileText,
   blackjack: Gamepad2,
+  onboarding: BookOpen,
 };
 
 export default function MobileAppSwitcher() {

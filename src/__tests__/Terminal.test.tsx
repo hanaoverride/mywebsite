@@ -13,6 +13,7 @@ describe('Terminal', () => {
         video: undefined,
         textviewer: undefined,
         blackjack: undefined,
+        onboarding: undefined,
       },
       focusedApp: null,
       zIndexCounter: 1,
@@ -142,7 +143,7 @@ describe('Terminal', () => {
     pressEnter(input);
 
     expect(
-      screen.getByText('Terminal session ended.'),
+      screen.getByText('Terminal session ended'),
     ).toBeInTheDocument();
 
     vi.advanceTimersByTime(500);

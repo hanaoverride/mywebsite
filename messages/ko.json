@@ -34,7 +34,8 @@
       "mail": "메일",
       "video": "비디오",
       "textviewer": "텍스트 뷰어",
-      "blackjack": "블랙잭"
+      "blackjack": "블랙잭",
+      "onboarding": "온보딩 가이드"
     },
     "menu": {
       "categories": {
@@ -62,7 +63,7 @@
       "title": "터미널",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, exit",
+      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, guide, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "터미널 세션이 종료되었습니다"
@@ -118,6 +119,51 @@
       "blackjack": "블랙잭!",
       "bust": "버스트!",
       "gameOver": "게임 오버"
+    },
+    "onboarding": {
+      "title": "온보딩 가이드",
+      "welcome": "환영합니다!",
+      "description": "이 사이트는 데스크탑 OS 형태의 포트폴리오입니다. 하단 도크 또는 메뉴에서 다양한 앱을 실행해 보세요.",
+      "start": "시작하기",
+      "next": "다음",
+      "prev": "이전",
+      "finish": "포트폴리오 탐색하기",
+      "revisitTitle": "가이드 다시 보기",
+      "revisitDescription": "이미 가이드를 보셨습니다. 다시 보시겠습니까?",
+      "steps": {
+        "1": {
+          "title": "데스크탑 인터페이스",
+          "content": "일반적인 리눅스 GUI 데스크탑 레이아웃을 따르는 인터페이스입니다.\n창을 자유롭게 드래그하거나 크기를 조절하며 멀티태스킹을 즐겨보세요."
+        },
+        "2": {
+          "title": "애플리케이션",
+          "content": "**좌측 상단 메뉴**와 **하단 도크**를 통해 터미널, 브라우저, 게임 등 다양한 기능을 실행할 수 있습니다."
+        },
+        "3": {
+          "title": "터미널 활용",
+          "content": "터미널은 사전 정의된 명령어 위주로 작동합니다.\n'whoami', 'browser', 'blackjack' 등을 입력하여 제 프로젝트들을 확인해 보세요."
+        },
+        "4": {
+          "title": "시스템 패널",
+          "content": "우측 상단 패널은 시계, 캘린더, 날씨 정보 및\n시스템 설정(색온도 등)을 포함하고 있습니다."
+        },
+        "5": {
+          "title": "비디오 플레이어",
+          "content": "제 활동이나 작업물을 담은 영상을\n시청할 수 있는 멀티미디어 앱입니다."
+        },
+        "6": {
+          "title": "메일 앱",
+          "content": "저에게 직접 연락을 남기실 수 있는\n메일링 애플리케이션입니다."
+        },
+        "7": {
+          "title": "웹 브라우저",
+          "content": "브라우저 형태의 앱을 통해 제 전체\n포트폴리오 사이트를 탐색할 수 있습니다."
+        },
+        "8": {
+          "title": "텍스트 뷰어",
+          "content": "텍스트 형태의 상세한 제 소개나\n코드를 볼 수 있는 도구입니다."
+        }
+      }
     }
   },
   "common": {

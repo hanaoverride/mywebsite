@@ -34,7 +34,8 @@
       "mail": "Mail",
       "video": "Video",
       "textviewer": "Text Viewer",
-      "blackjack": "Blackjack"
+      "blackjack": "Blackjack",
+      "onboarding": "Onboarding Guide"
     },
     "menu": {
       "categories": {
@@ -62,7 +63,7 @@
       "title": "Terminal",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, exit",
+      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, guide, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "Terminal session ended"
@@ -118,6 +119,51 @@
       "blackjack": "Blackjack!",
       "bust": "Bust!",
       "gameOver": "Game Over"
+    },
+    "onboarding": {
+      "title": "Onboarding Guide",
+      "welcome": "Welcome!",
+      "description": "This site is a desktop OS-style portfolio. Try running various apps from the dock or menu.",
+      "start": "Get Started",
+      "next": "Next",
+      "prev": "Prev",
+      "finish": "Explore Portfolio",
+      "revisitTitle": "Revisit Guide",
+      "revisitDescription": "You've already seen the guide. Would you like to watch it again?",
+      "steps": {
+        "1": {
+          "title": "Desktop Interface",
+          "content": "This interface follows a general Linux GUI desktop layout.\nFeel free to drag or resize windows and enjoy multitasking."
+        },
+        "2": {
+          "title": "Applications",
+          "content": "You can launch various functions through the\n**top-left menu** and the **bottom dock**."
+        },
+        "3": {
+          "title": "Using Terminal",
+          "content": "The terminal works mainly with predefined commands.\nTry entering 'whoami', 'browser', 'blackjack' to see my projects."
+        },
+        "4": {
+          "title": "System Panel",
+          "content": "The top-right panel includes a clock, calendar, weather info,\nand system settings like color temperature."
+        },
+        "5": {
+          "title": "Video Player",
+          "content": "A multimedia app where you can watch videos\nfeaturing my activities or works."
+        },
+        "6": {
+          "title": "Mail App",
+          "content": "A mailing application where you can leave a\nmessage to contact me directly."
+        },
+        "7": {
+          "title": "Web Browser",
+          "content": "Explore my full portfolio site through\nthe browser-style application."
+        },
+        "8": {
+          "title": "Text Viewer",
+          "content": "A tool for viewing detailed introductions\nor code snippets in text format."
+        }
+      }
     }
   },
   "common": {

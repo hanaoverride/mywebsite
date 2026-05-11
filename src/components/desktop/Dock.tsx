@@ -2,7 +2,7 @@
 
 import { useDesktopStore } from '@/store/desktop';
 import type { AppId } from '@/types/desktop';
-import { Terminal, Globe, Mail, Video, FileText, Gamepad2, Menu } from 'lucide-react';
+import { Terminal, Globe, Mail, Video, FileText, Gamepad2, Menu, BookOpen, Compass } from 'lucide-react';
 
 const DOCK_APPS: { id: AppId | 'menu'; icon: typeof Terminal; label: string }[] = [
   { id: 'menu', icon: Menu, label: 'Menu' },
@@ -12,6 +12,8 @@ const DOCK_APPS: { id: AppId | 'menu'; icon: typeof Terminal; label: string }[] 
   { id: 'video', icon: Video, label: 'Video' },
   { id: 'textviewer', icon: FileText, label: 'Text Viewer' },
   { id: 'blackjack', icon: Gamepad2, label: 'Blackjack' },
+  { id: 'onboarding', icon: BookOpen, label: 'Onboarding' },
+  { id: 'navigator', icon: Compass, label: 'Navigator' },
 ];
 
 export default function Dock() {
@@ -24,7 +26,7 @@ export default function Dock() {
     if (id === 'menu') {
       toggleMenu();
     } else {
-      openApp(id);
+      openApp(id, { toggle: true });
     }
   };
 

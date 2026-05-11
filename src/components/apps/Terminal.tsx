@@ -92,6 +92,16 @@ export default function Terminal() {
           addOutput('Opening Blackjack...');
           openApp('blackjack');
           break;
+        case 'guide':
+        case 'onboarding':
+          addOutput('Opening Onboarding Guide...');
+          openApp('onboarding');
+          break;
+        case 'nav':
+        case 'navigator':
+          addOutput('Opening Navigation Hub...');
+          openApp('navigator');
+          break;
         case 'exit':
           addOutput(t('exitMessage'));
           setTimeout(() => closeApp('terminal'), 500);

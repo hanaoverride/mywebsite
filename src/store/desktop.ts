@@ -12,7 +12,7 @@ interface DesktopStore {
   hasAutoOpened: boolean;
 
   // Actions
-  openApp: (id: AppId) => void;
+  openApp: (id: AppId, options?: { toggle?: boolean }) => void;
   closeApp: (id: AppId) => void;
   focusApp: (id: AppId) => void;
   minimizeApp: (id: AppId) => void;
@@ -53,6 +53,7 @@ const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
     video: '비디오 플레이어',
     textviewer: '텍스트 뷰어',
     blackjack: '블랙잭',
+    onboarding: '온보딩 가이드',
   },
   en: {
     terminal: 'Terminal',
@@ -61,7 +62,18 @@ const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
     video: 'Video Player',
     textviewer: 'Text Viewer',
     blackjack: 'Blackjack',
+    onboarding: 'Onboarding Guide',
   },
+};
+
+const APP_DEFAULT_SIZES: Record<AppId, { width: number; height: number }> = {
+  terminal: { width: 750, height: 480 },
+  browser: { width: 1000, height: 700 },
+  mail: { width: 900, height: 600 },
+  video: { width: 800, height: 500 },
+  textviewer: { width: 700, height: 800 },
+  blackjack: { width: 800, height: 600 },
+  onboarding: { width: 700, height: 550 },
 };
 
 function getAppTitle(id: AppId, locale: 'ko' | 'en'): string {
@@ -108,10 +120,12 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   mobileScreen: 'home',
   setMobileScreen: (screen) => set({ mobileScreen: screen }),
 
-  openApp: (id: AppId) => {
+  openApp: (id: AppId, options?: { toggle?: boolean }) => {
     const state = get();
-    if (state.openApps[id] && !state.openApps[id]!.minimized) {
-      if (state.focusedApp === id) {
+    const appState = state.openApps[id];
+
+    if (appState && !appState.minimized) {
+      if (options?.toggle && state.focusedApp === id) {
         get().minimizeApp(id);
       } else {
         get().focusApp(id);
@@ -130,6 +144,7 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
       });
       return;
     }
+    const { width, height } = APP_DEFAULT_SIZES[id] || { width: DEFAULT_WIDTH, height: DEFAULT_HEIGHT };
     const existingCount = Object.values(state.openApps).filter(Boolean).length;
     const { x, y } = getStaggeredPosition(existingCount);
     const newZIndex = state.zIndexCounter + 1;
@@ -141,8 +156,8 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
           title: getAppTitle(id, state.locale),
           x,
           y,
-          width: DEFAULT_WIDTH,
-          height: DEFAULT_HEIGHT,
+          width,
+          height,
           minimized: false,
           maximized: false,
           zIndex: newZIndex,

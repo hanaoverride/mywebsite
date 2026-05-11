@@ -13,6 +13,7 @@ describe('Menu', () => {
         video: undefined,
         textviewer: undefined,
         blackjack: undefined,
+        onboarding: undefined,
       },
       menuOpen: false,
       focusedApp: null,
@@ -47,11 +48,11 @@ describe('Menu', () => {
     expect(useDesktopStore.getState().openApps.terminal).toBeDefined();
   });
 
-  it('shows shutdown dialog on power button click', () => {
+  it('enters sleep mode on sleep button click', () => {
     useDesktopStore.setState({ menuOpen: true });
     render(<Menu />);
-    fireEvent.click(screen.getByTestId('menu-shutdown'));
-    expect(useDesktopStore.getState().shutdownDialogOpen).toBe(true);
+    fireEvent.click(screen.getByTestId('menu-sleep'));
+    expect(useDesktopStore.getState().isSleepMode).toBe(true);
     expect(useDesktopStore.getState().menuOpen).toBe(false);
   });
 
