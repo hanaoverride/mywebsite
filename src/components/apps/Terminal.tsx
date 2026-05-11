@@ -41,6 +41,7 @@ export default function Terminal() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const openApp = useDesktopStore((s) => s.openApp);
   const closeApp = useDesktopStore((s) => s.closeApp);
+  const focusedApp = useDesktopStore((s) => s.focusedApp);
 
   useEffect(() => {
     const interval = setInterval(() => setDisplayTime(getTimeStr()), 1000);

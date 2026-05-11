@@ -1,8 +1,7 @@
 'use client';
 
 import { useDesktopStore } from '@/store/desktop';
-import { Home, ChevronLeft, Layers } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ChevronLeft, Layers } from 'lucide-react';
 
 export default function MobileNavBar() {
   const setMobileScreen = useDesktopStore((s) => s.setMobileScreen);

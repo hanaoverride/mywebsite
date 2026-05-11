@@ -2,7 +2,7 @@
 
 import { useDesktopStore } from '@/store/desktop';
 import { X, Terminal, Globe, Mail, Video, FileText, Gamepad2 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import type { AppId } from '@/types/desktop';
 
 const APP_ICONS: Record<AppId, typeof Terminal> = {

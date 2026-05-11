@@ -1,6 +1,5 @@
 'use client';
 
-import { ReactNode } from 'react';
 import MobileStatusBar from './MobileStatusBar';
 import MobileNavBar from './MobileNavBar';
 import MobileHomeScreen from './MobileHomeScreen';
@@ -12,11 +11,7 @@ import ColorTemperatureOverlay from '@/components/desktop/ColorTemperatureOverla
 import { useDesktopStore } from '@/store/desktop';
 import { AnimatePresence } from 'framer-motion';
 
-interface MobileShellProps {
-  children: ReactNode;
-}
-
-export default function MobileShell({ children }: MobileShellProps) {
+export default function MobileShell() {
   const mobileScreen = useDesktopStore((s) => s.mobileScreen);
   const focusedApp = useDesktopStore((s) => s.focusedApp);
 

@@ -17,7 +17,6 @@ const APPS: { id: AppId; icon: typeof Terminal; color: string }[] = [
 
 export default function MobileHomeScreen() {
   const t = useTranslations('desktop.dock');
-  const tHero = useTranslations('portfolio.hero');
   const openApp = useDesktopStore((s) => s.openApp);
   const setMobileScreen = useDesktopStore((s) => s.setMobileScreen);
   const openApps = useDesktopStore((s) => s.openApps);

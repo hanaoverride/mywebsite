@@ -3,7 +3,6 @@
 import { useDesktopStore } from '@/store/desktop';
 import { Battery, Wifi, Sun, Cloud, CloudRain, CloudLightning, Snowflake, CloudFog } from 'lucide-react';
 import LanguageToggle from '@/components/common/LanguageToggle';
-import { useTranslations } from 'next-intl';
 
 const WEATHER_ICONS: Record<string, typeof Sun> = {
   Clear: Sun,
@@ -16,10 +15,8 @@ const WEATHER_ICONS: Record<string, typeof Sun> = {
 };
 
 export default function MobileStatusBar() {
-  const t = useTranslations('desktop.panel');
   const panelTime = useDesktopStore((s) => s.panelTime);
   const weather = useDesktopStore((s) => s.weather);
-  const locale = useDesktopStore((s) => s.locale);
 
   const WeatherIcon = weather ? (WEATHER_ICONS[weather.condition] || Sun) : Sun;
 

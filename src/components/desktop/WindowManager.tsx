@@ -3,6 +3,8 @@
 import { useDesktopStore } from '@/store/desktop';
 import AppWindow from './AppWindow';
 import AppContent from '@/components/common/AppContent';
+import { useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
 
 export default function WindowManager() {
   const openApps = useDesktopStore((s) => s.openApps);

@@ -3,7 +3,7 @@
 import { useDesktopStore } from '@/store/desktop';
 import AppContent from '@/components/common/AppContent';
 import { X, ChevronLeft } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function MobileAppView() {
   const focusedApp = useDesktopStore((s) => s.focusedApp);
