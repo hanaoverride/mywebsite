@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
   const templateId = process.env.EMAILJS_TEMPLATE_ID;
   const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
   const privateKey = process.env.EMAILJS_PRIVATE_KEY;
-  const toEmail = process.env.EMAILJS_TO_EMAIL || 'hanaoverride@gmail.com';
+  const toEmail = process.env.NEXT_PUBLIC_EMAILJS_TO_EMAIL || 'hanaoverride@gmail.com';
 
   if (!serviceId || !templateId || !publicKey) {
     console.error('Missing EmailJS configuration:', { serviceId, templateId, publicKey });
