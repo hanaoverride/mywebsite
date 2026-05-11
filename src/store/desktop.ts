@@ -104,7 +104,11 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
   openApp: (id: AppId) => {
     const state = get();
     if (state.openApps[id] && !state.openApps[id]!.minimized) {
-      get().focusApp(id);
+      if (state.focusedApp === id) {
+        get().minimizeApp(id);
+      } else {
+        get().focusApp(id);
+      }
       return;
     }
     if (state.openApps[id]?.minimized) {
