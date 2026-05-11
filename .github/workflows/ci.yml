@@ -41,7 +41,7 @@ jobs:
           node-version: 20
           cache: 'npm'
       - run: npm ci
-      - run: npm run test
+      - run: npm run test:ci
 
   audit:
     name: Security Audit

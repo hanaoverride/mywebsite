@@ -10,6 +10,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:ci": "vitest run src/__tests__/store.test.ts src/__tests__/health.test.ts src/__tests__/sanitize.test.ts src/__tests__/contact.test.ts src/__tests__/types.test.ts",
     "test:watch": "vitest",
     "docker:build": "docker build -t portfolio .",
     "docker:run": "docker run --rm -p 3000:3000 portfolio"
