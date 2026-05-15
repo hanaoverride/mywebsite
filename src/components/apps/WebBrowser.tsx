@@ -1,7 +1,7 @@
 'use client';
 
 import { useDesktopStore } from '@/store/desktop';
-import { Shield, Share2, Menu, Search, Bookmark, ArrowLeft, ArrowRight, RotateCw, Plus, X, Home } from 'lucide-react';
+import { Shield, Share2, Menu, Search, ArrowLeft, ArrowRight, RotateCw, Plus, X, Home } from 'lucide-react';
 import { ReactNode } from 'react';
 
 export default function WebBrowser({ children }: { children?: ReactNode }) {

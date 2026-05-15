@@ -12,7 +12,6 @@ export default function Navigator() {
   const locale = useDesktopStore((s) => s.locale);
   const openApp = useDesktopStore((s) => s.openApp);
   const setBrowserUrl = useDesktopStore((s) => s.setBrowserUrl);
-  const isKo = locale === 'ko';
 
   const { about, links } = navigationData;
 

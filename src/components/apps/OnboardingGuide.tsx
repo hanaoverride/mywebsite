@@ -18,7 +18,6 @@ import {
   FileText,
   Home,
   Layers,
-  Touchpad,
   Smartphone,
   Grid
 } from 'lucide-react';

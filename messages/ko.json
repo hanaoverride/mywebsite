@@ -35,8 +35,7 @@
       "video": "비디오",
       "textviewer": "텍스트 뷰어",
       "blackjack": "블랙잭",
-      "onboarding": "온보딩 가이드",
-      "navigator": "내비게이션"
+      "onboarding": "온보딩 가이드"
     },
     "menu": {
       "categories": {
@@ -64,7 +63,7 @@
       "title": "터미널",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, guide, nav, exit",
+      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, guide, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "터미널 세션이 종료되었습니다"

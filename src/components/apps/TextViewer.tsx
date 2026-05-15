@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import { useTranslations } from 'next-intl';
 
 export default function TextViewer() {
@@ -7,42 +8,56 @@ export default function TextViewer() {
 
   const defaultContent = t.raw('defaultContent') as string;
 
-  let isInCodeBlock = false;
+  // Pre-process lines to determine code block state for each line
+  const processedLines = useMemo(() => {
+    return defaultContent.split('\n').reduce<{
+      items: Array<{ isCodeDelimiter: boolean; content: string; isInCodeBlock: boolean; lineNumber: number }>;
+      inBlock: boolean;
+      counter: number;
+    }>((acc, line) => {
+      const isDelim = line.trim().startsWith('```');
+      const nextInBlock = isDelim ? !acc.inBlock : acc.inBlock;
+      
+      return {
+        items: [
+          ...acc.items,
+          {
+            isCodeDelimiter: isDelim,
+            content: line,
+            isInCodeBlock: nextInBlock,
+            lineNumber: isDelim ? -1 : acc.counter
+          }
+        ],
+        inBlock: nextInBlock,
+        counter: isDelim ? acc.counter : acc.counter + 1
+      };
+    }, { items: [], inBlock: false, counter: 1 }).items;
+  }, [defaultContent]);
 
   return (
     <div className="h-full overflow-auto bg-[#272822] custom-scrollbar" data-testid="text-viewer">
       <div className="min-w-full inline-block pt-3 pb-8">
-        {(() => {
-          let lineCounter = 1;
-          return defaultContent.split('\n').map((line, i) => {
-            const isCodeDelimiter = line.trim().startsWith('```');
-            if (isCodeDelimiter) {
-              isInCodeBlock = !isInCodeBlock;
-              return null;
-            }
+        {processedLines.map((item, i) => {
+          if (item.isCodeDelimiter) return null;
 
-            const currentInCodeBlock = isInCodeBlock;
-            const currentLineNumber = lineCounter++;
-
-            return (
-              <div key={i} className="flex group hover:bg-white/5">
-                <div className="w-12 flex-shrink-0 bg-[#1e1f1c]/50 text-[#75715E] text-xs font-mono text-right px-2 py-1 select-none border-r border-gray-700/30 sticky left-0 z-10">
-                  {currentLineNumber}
-                </div>
-                <div 
-                  className={`flex-1 text-[#F8F8F2] text-sm font-mono px-3 py-0.5 whitespace-pre-wrap break-words overflow-hidden ${currentInCodeBlock ? 'bg-black/20' : ''}`}
-                  style={{ lineHeight: '1.5rem' }}
-                >
-                  {isInCodeBlock ? (
-                    <CodeLine content={line} />
-                  ) : (
-                    <MarkdownLine content={line} />
-                  )}
-                </div>
+          return (
+            <div key={i} className="flex group hover:bg-white/5">
+              <div className="w-12 flex-shrink-0 bg-[#1e1f1c]/50 text-[#75715E] text-xs font-mono text-right px-2 py-1 select-none border-r border-gray-700/30 sticky left-0 z-10">
+                {item.lineNumber}
               </div>
-            );
-          });
-        })()}
+              <div 
+                className={`flex-1 text-[#F8F8F2] text-sm font-mono px-3 py-0.5 whitespace-pre-wrap break-words overflow-hidden ${item.isInCodeBlock ? 'bg-black/20' : ''}`}
+                style={{ lineHeight: '1.5rem' }}
+              >
+                {item.isInCodeBlock ? (
+                  <CodeLine content={item.content} />
+                ) : (
+                  <MarkdownLine content={item.content} />
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

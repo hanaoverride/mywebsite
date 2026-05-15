@@ -99,12 +99,6 @@ export default function Terminal() {
           addOutput('Opening Onboarding Guide...');
           openApp('onboarding');
           break;
-        case 'nav':
-        case 'navigator':
-          addOutput('Opening Navigation Hub...');
-          setBrowserUrl('home');
-          openApp('browser');
-          break;
         case 'exit':
           addOutput(t('exitMessage'));
           setTimeout(() => closeApp('terminal'), 500);
@@ -119,7 +113,7 @@ export default function Terminal() {
           break;
       }
     },
-    [openApp, closeApp, addOutput, addError, t],
+    [openApp, closeApp, addOutput, addError, t, setBrowserUrl],
   );
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

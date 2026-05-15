@@ -19,7 +19,6 @@ import {
   Clapperboard,
   Briefcase,
   BookOpen,
-  Compass,
 } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
@@ -40,7 +39,6 @@ const MENU_APPS: { id: AppId; icon: typeof Terminal }[] = [
   { id: 'textviewer', icon: FileText },
   { id: 'blackjack', icon: Gamepad2 },
   { id: 'onboarding', icon: BookOpen },
-  { id: 'navigator', icon: Compass },
 ];
 
 export default function Menu() {
@@ -82,7 +80,7 @@ export default function Menu() {
     if (selectedCategory === 'games') return app.id === 'blackjack';
     if (selectedCategory === 'internet') return app.id === 'browser';
     if (selectedCategory === 'multimedia') return app.id === 'video';
-    if (selectedCategory === 'office') return app.id === 'textviewer' || app.id === 'onboarding' || app.id === 'navigator';
+    if (selectedCategory === 'office') return app.id === 'textviewer' || app.id === 'onboarding';
     return false;
   });
 

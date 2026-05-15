@@ -1,7 +1,7 @@
 'use client';
 
 import { useDesktopStore } from '@/store/desktop';
-import { Terminal, Globe, Mail, Video, FileText, Gamepad2, BookOpen, Compass } from 'lucide-react';
+import { Terminal, Globe, Mail, Video, FileText, Gamepad2, BookOpen } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { AppId } from '@/types/desktop';
@@ -14,7 +14,6 @@ const APPS: { id: AppId; icon: typeof Terminal; color: string }[] = [
   { id: 'textviewer', icon: FileText, color: 'bg-orange-500' },
   { id: 'blackjack', icon: Gamepad2, color: 'bg-green-600' },
   { id: 'onboarding', icon: BookOpen, color: 'bg-cyan-500' },
-  { id: 'navigator', icon: Compass, color: 'bg-blue-600' },
 ];
 
 export default function MobileHomeScreen() {

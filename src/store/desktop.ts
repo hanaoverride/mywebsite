@@ -58,7 +58,6 @@ const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
     textviewer: '텍스트 뷰어',
     blackjack: '블랙잭',
     onboarding: '온보딩 가이드',
-    navigator: '내비게이션',
   },
   en: {
     terminal: 'Terminal',
@@ -68,7 +67,6 @@ const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
     textviewer: 'Text Viewer',
     blackjack: 'Blackjack',
     onboarding: 'Onboarding Guide',
-    navigator: 'Navigation',
   },
 };
 
@@ -80,7 +78,6 @@ const APP_DEFAULT_SIZES: Record<AppId, { width: number; height: number }> = {
   textviewer: { width: 700, height: 800 },
   blackjack: { width: 800, height: 600 },
   onboarding: { width: 700, height: 550 },
-  navigator: { width: 750, height: 600 },
 };
 
 function getAppTitle(id: AppId, locale: 'ko' | 'en'): string {

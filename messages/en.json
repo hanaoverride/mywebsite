@@ -35,8 +35,7 @@
       "video": "Video",
       "textviewer": "Text Viewer",
       "blackjack": "Blackjack",
-      "onboarding": "Onboarding Guide",
-      "navigator": "Navigation"
+      "onboarding": "Onboarding Guide"
     },
     "menu": {
       "categories": {
@@ -64,7 +63,7 @@
       "title": "Terminal",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, guide, nav, exit",
+      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, guide, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "Terminal session ended"
