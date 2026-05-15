@@ -43,6 +43,10 @@ interface DesktopStore {
   // Mobile state
   mobileScreen: 'home' | 'app' | 'switcher';
   setMobileScreen: (screen: 'home' | 'app' | 'switcher') => void;
+
+  // Browser state
+  browserUrl: string;
+  setBrowserUrl: (url: string) => void;
 }
 
 const APP_TITLES: Record<'ko' | 'en', Record<AppId, string>> = {
@@ -122,6 +126,9 @@ export const useDesktopStore = create<DesktopStore>()((set, get) => ({
 
   mobileScreen: 'home',
   setMobileScreen: (screen) => set({ mobileScreen: screen }),
+
+  browserUrl: 'home',
+  setBrowserUrl: (url) => set({ browserUrl: url }),
 
   openApp: (id: AppId, options?: { toggle?: boolean }) => {
     const state = get();

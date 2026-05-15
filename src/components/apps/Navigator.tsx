@@ -11,6 +11,7 @@ export default function Navigator() {
   const t = useTranslations('apps.navigator');
   const locale = useDesktopStore((s) => s.locale);
   const openApp = useDesktopStore((s) => s.openApp);
+  const setBrowserUrl = useDesktopStore((s) => s.setBrowserUrl);
   const isKo = locale === 'ko';
 
   const { about, links } = navigationData;
@@ -19,7 +20,12 @@ export default function Navigator() {
     if (item.type === 'external') {
       window.open(item.target, '_blank', 'noopener,noreferrer');
     } else {
-      openApp(item.target as AppId);
+      if (item.id === 'portfolio') {
+        setBrowserUrl('portfolio');
+        openApp('browser');
+      } else {
+        openApp(item.target as AppId);
+      }
     }
   };
 

@@ -9,18 +9,26 @@ import Blackjack from '@/components/apps/Blackjack';
 import OnboardingGuide from '@/components/apps/OnboardingGuide';
 import Navigator from '@/components/apps/Navigator';
 import PortfolioContent from '@/lib/portfolio-content';
+import { useDesktopStore } from '@/store/desktop';
 import type { AppId } from '@/types/desktop';
 
 export default function AppContent({ id }: { id: AppId }) {
+  const browserUrl = useDesktopStore((s) => s.browserUrl);
+
   switch (id) {
     case 'terminal':
       return <Terminal />;
-    case 'browser':
+    case 'browser': {
       return (
         <WebBrowser>
-          <PortfolioContent />
+          {browserUrl === 'portfolio' ? (
+            <PortfolioContent />
+          ) : (
+            <Navigator />
+          )}
         </WebBrowser>
       );
+    }
     case 'mail':
       return <MailingApp />;
     case 'video':
@@ -31,8 +39,6 @@ export default function AppContent({ id }: { id: AppId }) {
       return <Blackjack />;
     case 'onboarding':
       return <OnboardingGuide />;
-    case 'navigator':
-      return <Navigator />;
     default:
       return (
         <div className="flex items-center justify-center h-full text-gray-500 text-sm p-4">

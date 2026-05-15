@@ -42,6 +42,7 @@ export default function Terminal() {
   const openApp = useDesktopStore((s) => s.openApp);
   const closeApp = useDesktopStore((s) => s.closeApp);
   const focusedApp = useDesktopStore((s) => s.focusedApp);
+  const setBrowserUrl = useDesktopStore((s) => s.setBrowserUrl);
 
   useEffect(() => {
     const interval = setInterval(() => setDisplayTime(getTimeStr()), 1000);
@@ -82,6 +83,7 @@ export default function Terminal() {
           break;
         case 'browser':
           addOutput('Opening Web Browser...');
+          setBrowserUrl('home');
           openApp('browser');
           break;
         case 'text':
@@ -100,7 +102,8 @@ export default function Terminal() {
         case 'nav':
         case 'navigator':
           addOutput('Opening Navigation Hub...');
-          openApp('navigator');
+          setBrowserUrl('home');
+          openApp('browser');
           break;
         case 'exit':
           addOutput(t('exitMessage'));
