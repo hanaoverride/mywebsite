@@ -35,7 +35,8 @@
       "video": "비디오",
       "textviewer": "텍스트 뷰어",
       "blackjack": "블랙잭",
-      "onboarding": "온보딩 가이드"
+      "onboarding": "온보딩 가이드",
+      "navigator": "내비게이션"
     },
     "menu": {
       "categories": {
@@ -63,7 +64,7 @@
       "title": "터미널",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, guide, exit",
+      "commands": "사용 가능한 명령어: whoami, video, mail, browser, text, blackjack, guide, nav, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "터미널 세션이 종료되었습니다"
@@ -102,8 +103,8 @@
       "viewOnYoutube": "YouTube에서 보기"
     },
     "textviewer": {
-      "title": "README.md — 텍스트 뷰어",
-      "defaultContent": "다재다능한 만능 개발자의 포트폴리오에 오신 것을 환영합니다!\n\n이 사이트는 개발자 hanaoverride의 실제 데스크탑 환경을 토대로 재구성된 포트폴리오입니다. 제가 평소 어떤 환경에서 서비스를 고민하고 개발하는지를 시각적으로 공유하고자 제작되었습니다.\n\n# 정보\n하단 도크에서 앱을 실행하거나 터미널에서 명령어를 입력해보세요.\n\n# 기능\n- 7개의 명령어 + 비밀 이스터 에그가 포함된 터미널\n- 포트폴리오가 포함된 웹 브라우저\n- 이메일 연락처 양식\n- 비디오 플레이어\n- 텍스트 뷰어 (지금 보고 계신 것입니다!)\n- 블랙잭 게임\n\n# 기술 스택\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
+      "title": "example.tsx — 텍스트 뷰어",
+      "defaultContent": "```tsx\n// app/layout.tsx\nexport default function RootLayout({\n  children,\n}: {\n  children: React.ReactNode\n}) {\n  return (\n    <html lang=\"ko\">\n      <body>\n        <nav>\n          <a href=\"/\">홈</a>\n          <a href=\"/dashboard\">대시보드</a>\n        </nav>\n        <main>{children}</main>\n      </body>\n    </html>\n  );\n}\n\n// app/page.tsx\nexport default function Page() {\n  return <h1>안녕하세요, Next.js!</h1>;\n}\n```"
     },
     "blackjack": {
       "title": "블랙잭",
@@ -133,7 +134,7 @@
       "steps": {
         "1": {
           "title": "데스크탑 인터페이스",
-          "content": "일반적인 리눅스 GUI 데스크탑 레이아웃을 따르는 인터페이스입니다.\n창을 자유롭게 드래그하거나 크기를 조절하며 멀티태스킹을 즐겨보세요."
+          "content": "이 프로젝트는 데스크탑에서는 리눅스 데스크탑 환경을, 모바일에서는 안드로이드 모바일과 유사한 환경을 재현합니다."
         },
         "2": {
           "title": "애플리케이션",
@@ -163,7 +164,36 @@
           "title": "텍스트 뷰어",
           "content": "텍스트 형태의 상세한 제 소개나\n코드를 볼 수 있는 도구입니다."
         }
+      },
+      "mobileSteps": {
+        "1": {
+          "title": "모바일 인터페이스",
+          "content": "이 프로젝트는 데스크탑에서는 리눅스 데스크탑 환경을, 모바일에서는 안드로이드 모바일과 유사한 환경을 재현합니다."
+        },
+        "2": {
+          "title": "애플리케이션 실행",
+          "content": "홈 화면의 **아이콘**들을 터치하여 터미널, 브라우저, 게임 등 다양한 기능을 실행할 수 있습니다."
+        },
+        "3": {
+          "title": "앱 전환",
+          "content": "하단 바의 **가운데 버튼**을 누르면 현재 실행 중인 앱들 사이를 빠르게 전환하거나 종료할 수 있습니다."
+        },
+        "4": {
+          "title": "홈으로 이동",
+          "content": "하단 바의 **좌측 홈 버튼**을 누르면 언제든지 홈 화면으로 돌아올 수 있습니다."
+        },
+        "5": {
+          "title": "터미널 활용",
+          "content": "터미널에서 'whoami', 'browser' 등의 명령어를 입력하여 제 프로젝트들을 확인해 보세요."
+        }
       }
+    },
+    "navigator": {
+      "title": "내비게이션",
+      "aboutSection": "소개",
+      "linksSection": "바로가기",
+      "openExternal": "외부 브라우저에서 열기",
+      "openInternal": "애플리케이션 실행"
     }
   },
   "common": {

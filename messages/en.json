@@ -35,7 +35,8 @@
       "video": "Video",
       "textviewer": "Text Viewer",
       "blackjack": "Blackjack",
-      "onboarding": "Onboarding Guide"
+      "onboarding": "Onboarding Guide",
+      "navigator": "Navigation"
     },
     "menu": {
       "categories": {
@@ -63,7 +64,7 @@
       "title": "Terminal",
       "subtitle": "hanaoverride@hostname:~ | 100x30 | pts/0",
       "promptUser": "hanaoverride",
-      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, guide, exit",
+      "commands": "Available commands: whoami, video, mail, browser, text, blackjack, guide, nav, exit",
       "whoami": "hanaoverride",
       "notFound": "command not found: {cmd}",
       "exitMessage": "Terminal session ended"
@@ -102,8 +103,8 @@
       "viewOnYoutube": "View on YouTube"
     },
     "textviewer": {
-      "title": "README.md — Text Viewer",
-      "defaultContent": "Welcome to the Portfolio of a Versatile All-Around Developer!\n\nThis site is a reconstructed portfolio based on developer hanaoverride's actual desktop environment. It was created to visually share the environment in which I brainstorm and develop services.\n\n# About\nTry launching apps from the bottom dock or typing commands in the terminal.\n\n# Features\n- Terminal with 7 commands + secret easter egg\n- Web Browser with portfolio\n- Email contact form\n- Video Player\n- Text Viewer (you're looking at it!)\n- Blackjack game\n\n# Tech Stack\nReact, Next.js, TypeScript, Tailwind CSS, Zustand"
+      "title": "example.tsx — Text Viewer",
+      "defaultContent": "```tsx\n// app/layout.tsx\nexport default function RootLayout({\n  children,\n}: {\n  children: React.ReactNode\n}) {\n  return (\n    <html lang=\"en\">\n      <body>\n        <nav>\n          <a href=\"/\">Home</a>\n          <a href=\"/dashboard\">Dashboard</a>\n        </nav>\n        <main>{children}</main>\n      </body>\n    </html>\n  );\n}\n\n// app/page.tsx\nexport default function Page() {\n  return <h1>Hello, Next.js!</h1>;\n}\n```"
     },
     "blackjack": {
       "title": "Blackjack",
@@ -133,7 +134,7 @@
       "steps": {
         "1": {
           "title": "Desktop Interface",
-          "content": "This interface follows a general Linux GUI desktop layout.\nFeel free to drag or resize windows and enjoy multitasking."
+          "content": "This project reproduces a Linux desktop environment on desktop and an Android-like mobile environment on mobile."
         },
         "2": {
           "title": "Applications",
@@ -163,7 +164,36 @@
           "title": "Text Viewer",
           "content": "A tool for viewing detailed introductions\nor code snippets in text format."
         }
+      },
+      "mobileSteps": {
+        "1": {
+          "title": "Mobile Interface",
+          "content": "This project reproduces a Linux desktop environment on desktop and an Android-like mobile environment on mobile."
+        },
+        "2": {
+          "title": "Launching Apps",
+          "content": "Touch the **icons** on the Home screen to launch various features like Terminal, Browser, and Games."
+        },
+        "3": {
+          "title": "App Switching",
+          "content": "Press the **middle button** on the bottom bar to quickly switch between or close currently running apps."
+        },
+        "4": {
+          "title": "Go to Home",
+          "content": "Press the **left home button** on the bottom bar to return to the Home screen at any time."
+        },
+        "5": {
+          "title": "Using Terminal",
+          "content": "Check out my projects by typing commands like 'whoami' and 'browser' in the terminal."
+        }
       }
+    },
+    "navigator": {
+      "title": "Navigation",
+      "aboutSection": "About",
+      "linksSection": "Quick Links",
+      "openExternal": "Open in External Browser",
+      "openInternal": "Launch Application"
     }
   },
   "common": {

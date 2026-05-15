@@ -29,7 +29,7 @@ export default function MobileHomeScreen() {
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-between py-12 px-6 overflow-y-auto">
+    <div className="flex-1 flex flex-col items-center justify-center py-12 px-6 overflow-y-auto">
       <div className="grid grid-cols-3 gap-x-8 gap-y-10 w-full max-w-sm">
         {APPS.map((app) => {
           const Icon = app.icon;
@@ -56,21 +56,6 @@ export default function MobileHomeScreen() {
         })}
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col items-center text-center gap-1 mt-auto pb-8"
-      >
-        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-purple-500 to-emerald-400 flex items-center justify-center text-2xl mb-2 shadow-xl border border-white/20">
-          👩‍💻
-        </div>
-        <h2 className="text-xl font-bold text-white tracking-tight drop-shadow-md">
-          hanaoverride
-        </h2>
-        <p className="text-xs text-white/60 font-medium tracking-wide uppercase">
-          Full-Stack Developer
-        </p>
-      </motion.div>
     </div>
   );
 }

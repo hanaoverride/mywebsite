@@ -29,6 +29,13 @@ export default function MobileShell() {
     }
   }, [hasAutoOpened, openApp, setMobileScreen]);
 
+  // Fallback to home if no app is focused but we are in app view
+  useEffect(() => {
+    if (mobileScreen === 'app' && !focusedApp) {
+      setMobileScreen('home');
+    }
+  }, [mobileScreen, focusedApp, setMobileScreen]);
+
   return (
     <div className="relative w-screen h-screen overflow-hidden flex flex-col bg-black">
       <ColorTemperatureOverlay />
